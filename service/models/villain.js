@@ -14,6 +14,9 @@ const VillainSchema = new mongoose.Schema({
         type: Number,
     },
     DEBATES: {
+        type: Array
+    },
+    CRIMINAL_OFFENSES: {
         type: Number
     }
 });

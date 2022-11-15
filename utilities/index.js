@@ -88,18 +88,41 @@ const rankLists = [
     
 ]
 
-const bountyActions = {
-    "General Villainy": 1000,
-    "Flagrant Statement": 5000,
-    "Flagrant Question": 8000,
-    "Generic Debate Win": 100000,
-    "Villain Arc Started": 500000
-}
+const bountyActions = [
+    {
+        label: "General Villainy",
+        value: "1000"
+    },
+    {
+        label: "Flagrant Statement",
+        value: "8000"
+    },
+    {
+        label: "Flagrant Question",
+        value: "3000"
+    },
+    {
+        label: "Generic Debate Win",
+        value: "100000"
+    },
+    {
+        label: "Villain Arc Started",
+        value: "500000"
+    }
+]
 
 const loseBounty = {
     "Disrespect": 5000,
     "Muted": 10000,
     "Debate Loss": 50000
+}
+
+const bountyCheck = (discordInfo, dbInfo) => {
+    if (dbInfo) {
+        return `${discordInfo.name}'s current bounty is 🪙 ${dbInfo.BOUNTY}`
+    } else {
+        return `${discordInfo.name} has not been added to the Bingo Book.`
+    }
 }
 
 /**
@@ -115,5 +138,6 @@ const loseBounty = {
 module.exports = {
     ranks: rankLists,
     bountyActions: bountyActions,
-    bountyLosses: loseBounty
+    bountyLosses: loseBounty,
+    bountyCheck: bountyCheck
 }

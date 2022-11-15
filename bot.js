@@ -51,3 +51,7 @@ if(process.env.ENV === "production"){
 } else {
     client.login(process.env.TEST_TOKEN)
 }
+
+module.exports = {
+    client
+}
