@@ -28,6 +28,11 @@ class Villain {
         return
     }
 
+    customIncreaseCriminalOffense(b){
+        this.CRIMINAL_OFFENSES.push({"OFFENSE": b, "DATE": moment().format('L')})
+        return
+    }
+
     setRank() {
         for(let r of ranks){
             if(this.BOUNTY >= r.BOUNTY) {
