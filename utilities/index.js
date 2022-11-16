@@ -91,7 +91,7 @@ const rankLists = [
 const bountyActions = [
     {
         label: "General Villainy",
-        value: "1000"
+        value: "2500"
     },
     {
         label: "Flagrant Statement",
@@ -103,7 +103,7 @@ const bountyActions = [
     },
     {
         label: "Generic Debate Win",
-        value: "100000"
+        value: "150000"
     },
     {
         label: "Villain Arc Started",
@@ -114,8 +114,8 @@ const bountyActions = [
         value: "-10000"
     },
     {
-        label: "Debate Loss",
-        value: "-50000"
+        label: "Generic Debate Loss",
+        value: "-70000"
     }
 ]
 

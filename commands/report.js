@@ -28,13 +28,13 @@ module.exports = {
                 const embedVar = new EmbedBuilder()
                     .setTitle("📔 Select Criminal Offense")
                     .setDescription(`Moderator or Staff, select the offense commited by the criminal from the list below.\n${bounty_message}`)
-                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 🪙 **1,000**."})
+                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 🪙 **2,500**."})
                     .addFields({name: "Flagrant Question", value: "Increases bounty by 🪙 **3,000**."})
                     .addFields({name: "Flagrant Statment", value: "Increases bounty by 🪙 **8,000**."})
-                    .addFields({name: "Generic Debate Win", value: "Increases bounty by 🪙 **100,000**."})
+                    .addFields({name: "Generic Debate Win", value: "Increases bounty by 🪙 **150,000**."})
                     .addFields({name: "Villain Arc Started", value: "Increases bounty by 🪙 **500,000**."})
                     .addFields({name: "Direspected Others", value: "Decreases bounty by 🪙 **10,000**."})
-                    .addFields({name: "Lost Debate", value: "Decreases bounty by 🪙 **50,000**."})
+                    .addFields({name: "Generic Lost Debate", value: "Decreases bounty by 🪙 **70,000**."})
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new SelectMenuBuilder()
@@ -98,9 +98,6 @@ module.exports = {
                     console.log(`Collected ${collected.size} interactions.`);
                 });
 
-                // await interaction.awaitMessageComponent({ filter, componentType: "SELECT_MENU", time: 60000 })
-                //     .then(interaction => interaction.editReply(`You selected ${interaction.values.join(', ')}!`))
-                //     .catch(err => console.log(`No interactions were collected.`));
 
             } catch(err) {
                 console.log(err)
