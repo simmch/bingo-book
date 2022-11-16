@@ -1,4 +1,5 @@
-const { ranks } = require("../utilities")
+const { ranks, bountyActions } = require("../utilities")
+const moment = require("moment")
 
 class Villain {
     constructor(ID, CUSTOM_TITLE, RANK, BOUNTY, DEBATES, CRIMINAL_OFFENSES) {
@@ -12,11 +13,18 @@ class Villain {
 
     increaseBounty(v){
         this.BOUNTY = this.BOUNTY + Number(v)
+        if(this.BOUNTY < 0) {
+            this.BOUNTY = 0
+        }
         return
     }
 
-    increaseCriminalOffense(){
-        this.CRIMINAL_OFFENSES = this.CRIMINAL_OFFENSES + 1
+    increaseCriminalOffense(b){
+        for(let action of bountyActions) {
+            if(action.value === b){
+                this.CRIMINAL_OFFENSES.push({"OFFENSE": action.label, "DATE": moment().format('L')})
+            }
+        }
         return
     }
 

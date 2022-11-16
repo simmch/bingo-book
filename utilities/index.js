@@ -1,7 +1,7 @@
 const rankLists = [
     {
     "RANK": "D",
-    "BOUNTY": 1000
+    "BOUNTY": 0
     },
     {
     "RANK": "D+",
@@ -108,6 +108,14 @@ const bountyActions = [
     {
         label: "Villain Arc Started",
         value: "500000"
+    },
+    {
+        label: "Disrespecting Others",
+        value: "-10000"
+    },
+    {
+        label: "Debate Loss",
+        value: "-50000"
     }
 ]
 
@@ -119,9 +127,9 @@ const loseBounty = {
 
 const bountyCheck = (discordInfo, dbInfo) => {
     if (dbInfo) {
-        return `${discordInfo.name}'s current bounty is 🪙 ${dbInfo.BOUNTY}`
+        return `${discordInfo.username}'s current bounty is 🪙 ${dbInfo.BOUNTY}`
     } else {
-        return `${discordInfo.name} has not been added to the Bingo Book.`
+        return `${discordInfo.username} has not been added to the Bingo Book.`
     }
 }
 
