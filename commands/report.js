@@ -98,7 +98,6 @@ module.exports = {
                     console.log(`Collected ${collected.size} interactions.`);
                 });
 
-
             } catch(err) {
                 console.log(err)
                 if(err) await interaction.editReply("There was an issue with reporting this offense. Please seek developer support.")
