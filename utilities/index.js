@@ -91,7 +91,7 @@ const rankLists = [
 const bountyActions = [
     {
         label: "General Villainy",
-        value: "2500"
+        value: "2000"
     },
     {
         label: "Flagrant Statement",

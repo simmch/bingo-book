@@ -16,7 +16,6 @@ module.exports = {
                     .setDescription("type in criminal name")
                     .setRequired(true)
             )
-        .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers),
         async execute(interaction) {
             try {
                 const criminal = interaction.options.getUser("criminal")

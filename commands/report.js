@@ -28,7 +28,7 @@ module.exports = {
                 const embedVar = new EmbedBuilder()
                     .setTitle("📔 Select Criminal Offense")
                     .setDescription(`Moderator or Staff, select the offense commited by the criminal from the list below.\n${bounty_message}`)
-                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 🪙 **2,500**."})
+                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 🪙 **2,000**."})
                     .addFields({name: "Flagrant Question", value: "Increases bounty by 🪙 **3,000**."})
                     .addFields({name: "Flagrant Statment", value: "Increases bounty by 🪙 **8,000**."})
                     .addFields({name: "Generic Debate Win", value: "Increases bounty by 🪙 **150,000**."})
