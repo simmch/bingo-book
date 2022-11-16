@@ -11,19 +11,19 @@ const BountyImage =  async (criminal, villain) => {
     let template = ""
 
     if(rank.startsWith("D")){
-        template = "./d_villain.png"
+        template = "/d_villain.png"
     } 
     if(rank.startsWith("C")){
-        template = "./c_villain.png"
+        template = "/c_villain.png"
     }
     if(rank.startsWith("B")){
-        template = "./b_villain.png"
+        template = "/b_villain.png"
     }
     if(rank.startsWith("A")){
-        template = "./a_villain.png"
+        template = "/a_villain.png"
     }
     if(rank.startsWith("S")){
-        template = "./s_villain.png"
+        template = "/s_villain.png"
     }
 
     
