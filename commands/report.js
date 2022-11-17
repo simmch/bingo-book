@@ -53,7 +53,7 @@ module.exports = {
                         villain.increaseBounty(custom_bounty)
                         villain.customIncreaseCriminalOffense(custom_offense, custom_bounty.toString())
                         villain.setRank()
-                        await update({"$set": villain})
+                        await update({"ID": villain.ID.toString()}, {"$set": villain})
                         let image = await bountyImage(criminal, villain)
                         await interaction.reply({
                             content: `Increased Bounty by **${custom_bounty.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}**`,
@@ -111,7 +111,7 @@ module.exports = {
                                     villain.increaseBounty(updatebounty)
                                     villain.increaseCriminalOffense(updatebounty.toString(), updatebounty.toString())
                                     villain.setRank()
-                                    await update({"$set": villain})
+                                    await update({"ID": villain.ID.toString()},{"$set": villain})
                                     // let image = await bountyImage(criminal, villain)
                                     await i.reply({
                                         content: `Increased Bounty by **${updatebounty}**`,
