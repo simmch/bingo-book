@@ -19,17 +19,17 @@ class Villain {
         return
     }
 
-    increaseCriminalOffense(b){
+    increaseCriminalOffense(b, p){
         for(let action of bountyActions) {
             if(action.value === b){
-                this.CRIMINAL_OFFENSES.push({"OFFENSE": action.label, "DATE": moment().format('L')})
+                this.CRIMINAL_OFFENSES.push({"OFFENSE": action.label, "BOUNTY": p, "DATE": moment().format('L')})
             }
         }
         return
     }
 
-    customIncreaseCriminalOffense(b){
-        this.CRIMINAL_OFFENSES.push({"OFFENSE": b, "DATE": moment().format('L')})
+    customIncreaseCriminalOffense(b, p){
+        this.CRIMINAL_OFFENSES.push({"OFFENSE": b, "BOUNTY": p, "DATE": moment().format('L')})
         return
     }
 

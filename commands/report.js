@@ -37,6 +37,13 @@ module.exports = {
                 const custom_offense = interaction.options.getString("customoffense")
                 const custom_bounty = interaction.options.getString("custombounty")
                 const id = criminal.id
+                if(id === interaction.user.id){
+                    await interaction.reply({
+                        content: "No self reporting!",
+                        ephemeral: true
+                    })
+                    return
+                }
                 const villain_info = await read({"ID": id})
                 const bounty_message = bountyCheck(criminal, villain_info)
 
@@ -44,7 +51,7 @@ module.exports = {
                     if (villain_info) {
                         let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES);
                         villain.increaseBounty(custom_bounty)
-                        villain.customIncreaseCriminalOffense(custom_offense)
+                        villain.customIncreaseCriminalOffense(custom_offense, custom_bounty.toString())
                         villain.setRank()
                         await update({"$set": villain})
                         let image = await bountyImage(criminal, villain)
@@ -55,7 +62,7 @@ module.exports = {
                     } else {
                         let villain = new villainClass(id, "N/A", "D", 0, [], []);
                         villain.increaseBounty(custom_bounty)
-                        villain.customIncreaseCriminalOffense(custom_offense)
+                        villain.customIncreaseCriminalOffense(custom_offense, custom_bounty.toString())
                         villain.setRank()
                         await create(villain)
                         let image = await bountyImage(criminal, villain)
@@ -68,13 +75,13 @@ module.exports = {
                     const embedVar = new EmbedBuilder()
                     .setTitle("📔 Select Criminal Offense")
                     .setDescription(`Moderator or Staff, select the offense commited by the criminal from the list below.\n${bounty_message}`)
-                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 🪙 **2,000**."})
-                    .addFields({name: "Flagrant Question", value: "Increases bounty by 🪙 **3,000**."})
-                    .addFields({name: "Flagrant Statment", value: "Increases bounty by 🪙 **8,000**."})
-                    .addFields({name: "Generic Debate Win", value: "Increases bounty by 🪙 **150,000**."})
-                    .addFields({name: "Villain Arc Started", value: "Increases bounty by 🪙 **500,000**."})
-                    .addFields({name: "Direspected Others", value: "Decreases bounty by 🪙 **10,000**."})
-                    .addFields({name: "Generic Lost Debate", value: "Decreases bounty by 🪙 **70,000**."})
+                    .addFields({name: "General Villain Behavior", value: "Increases bounty by 💵 **2,000**."})
+                    .addFields({name: "Flagrant Question", value: "Increases bounty by 💵 **3,000**."})
+                    .addFields({name: "Flagrant Statment", value: "Increases bounty by 💵 **8,000**."})
+                    .addFields({name: "Generic Debate Win", value: "Increases bounty by 💵 **150,000**."})
+                    .addFields({name: "Villain Arc Started", value: "Increases bounty by 💵 **500,000**."})
+                    .addFields({name: "Direspected Others", value: "Decreases bounty by 💵 **10,000**."})
+                    .addFields({name: "Generic Lost Debate", value: "Decreases bounty by 💵 **70,000**."})
                     const row = new ActionRowBuilder()
                         .addComponents(
                             new SelectMenuBuilder()
@@ -102,10 +109,10 @@ module.exports = {
                                 if (villain_info) {
                                     let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES);
                                     villain.increaseBounty(updatebounty)
-                                    villain.increaseCriminalOffense(updatebounty.toString())
+                                    villain.increaseCriminalOffense(updatebounty.toString(), updatebounty.toString())
                                     villain.setRank()
                                     await update({"$set": villain})
-                                    let image = await bountyImage(criminal, villain)
+                                    // let image = await bountyImage(criminal, villain)
                                     await i.reply({
                                         content: `Increased Bounty by **${updatebounty}**`,
                                         ephemeral: true
@@ -113,10 +120,10 @@ module.exports = {
                                 } else {
                                     let villain = new villainClass(id, "N/A", "D", 0, [], []);
                                     villain.increaseBounty(updatebounty)
-                                    villain.increaseCriminalOffense(updatebounty.toString())
+                                    villain.increaseCriminalOffense(updatebounty.toString(),  updatebounty.toString())
                                     villain.setRank()
                                     await create(villain)
-                                    let image = await bountyImage(criminal, villain)
+                                    // let image = await bountyImage(criminal, villain)
                                     await i.reply({
                                         content: `Increased  Bounty by **${updatebounty}**`,
                                         ephemeral: true
