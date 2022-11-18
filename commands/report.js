@@ -10,7 +10,7 @@ const { bountyImage } = require("../utilities/bounty_canva")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("reportoffense")
+        .setName("report")
         .setDescription("Report Criminal Offense to increase Bounty")
         .addUserOption(option => 
                 option
