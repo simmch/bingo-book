@@ -46,7 +46,8 @@ module.exports = {
                         for(let bounty of topBounties) {
                             let username = await interaction.client.users.fetch(bounty.ID).catch(() => null);
                             ++count
-                            topList.push(`${count.toString()} - 💵 $${bounty.BOUNTY.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}  **${username.username}**\n`)
+                            count === 1 ? m = "👑" : m = ""
+                            topList.push(`${count.toString()} - 💵 $${bounty.BOUNTY.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}  **${username.username}** ${m}\n`)
                         }
                         let message = topList.join("\n")
                         const embedVar = new EmbedBuilder()
