@@ -67,7 +67,7 @@ module.exports = {
 
                     } else {
                         await interaction.reply({
-                            content: "This feature is currently under development. Please check back later.\n- *Doodle Bobdin*"
+                            content: "This feature is currently under development. Please check back later.\n- *Goodle Bobdin*"
                         })
                     }
 
