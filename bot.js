@@ -47,7 +47,6 @@ for (const file of eventFiles) {
 
 
 
-
 if(process.env.ENV === "production"){
     client.login(process.env.PRODUCTION_TOKEN)
 } else {

@@ -14,6 +14,20 @@ const read = async (params) => {
     }
 }
 
+const readAll = async () => {
+    try {
+        const response = await Villain.find();
+        if(response) return response
+        if(!response) return false
+    }
+    catch (err) {
+        if(err){
+            console.error(err)
+            return false
+        }
+    }
+}
+
 const create = async (new_record) => {
     try {
         const villain = new Villain(new_record);
@@ -47,6 +61,7 @@ const update = async (record, updated_field) => {
 
 module.exports = {
     read,
+    readAll,
     create,
     update
 }
