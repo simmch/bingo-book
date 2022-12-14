@@ -9,8 +9,8 @@ const { bountyImage } = require("../utilities/bounty_canva");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("criminaldetails")
-        .setDescription("View a villains detailed offenses.")
+        .setName("debatedetails")
+        .setDescription("View a criminal debate details.")
         .addUserOption(option => 
                 option
                     .setName("criminal")
@@ -22,7 +22,7 @@ module.exports = {
                 const criminal = interaction.options.getUser("criminal")
                 const id = criminal.id
                 const villain_info = await read({"ID": id})
-                if (villain_info && villain_info.CRIMINAL_OFFENSES.length >= 1) {
+                if (villain_info && villain_info.DEBATES.length >= 1) {
                     let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES);
                     let image = await bountyImage(criminal, villain)
                     // for(let offense in villain.CRIMINAL_OFFENSES)
@@ -42,18 +42,19 @@ module.exports = {
                         return chunks
                     }
 
-                    let offenseChunks = chunk(villain.CRIMINAL_OFFENSES, 4)
+                    let offenseChunks = chunk(villain.DEBATES, 4)
                     let listOfEmbeds = []
-                    for(let offense of offenseChunks){
+                    for(let debate of offenseChunks){
                         let m = []
-                        for(let v of offense){
+                        for(let v of debate){
                             // console.log(v)
-                            m.push(`**${v.OFFENSE}**\n💵 $${v.BOUNTY.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}\n${v.DATE}\n`)
+                            let username = await interaction.client.users.fetch(v.OPPONENT).catch(() => null);
+                            m.push(`**Topic:** ${v.TOPIC}\n**Opponent:** ${username}\n${v.DATE}\n`)
                         }
                         // console.log(m)
                         let j = m.join("\n")
                         const embedVar = new EmbedBuilder()
-                            .setTitle(`📔 ${criminal.username} Criminal Record`)
+                            .setTitle(`🆚 ${criminal.username} Debate Record`)
                             .setDescription(`${j}`)
                             .setImage('attachment://profile-image.png')
                             .setThumbnail(criminal.displayAvatarURL())
@@ -86,7 +87,7 @@ module.exports = {
                         .send();
                 } else {
                     await interaction.reply({
-                        content: `**${criminal.username}** does not have any criminal offenses.`,
+                        content: `**${criminal.username}** does not have any debates.`,
                     })
                 }
 

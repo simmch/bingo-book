@@ -6,7 +6,8 @@ const BountyImage =  async (criminal, villain) => {
     let rank = villain.RANK
     let bounty = villain.BOUNTY.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     let offenses = villain.CRIMINAL_OFFENSES.length.toString()
-    let debate_wins = "0"
+    // let debate_wins = "0"
+    villain.DEBATES ? debate_wins = villain.DEBATES.length : debate_wins = 0
     let debate_losses = "0"
     let template = ""
 
@@ -52,7 +53,7 @@ const BountyImage =  async (criminal, villain) => {
     // Actually fill the text with a solid color
     context.fillText(criminal.username, 160, 60);
     context.fillText(rank, 160, 110);
-    context.fillText(debate_wins, 130, 237) // Debate Wins
+    context.fillText(debate_wins.toString(), 130, 237) // Debate Wins
     context.fillText(debate_losses, 138, 257) // Debate Losses
     context.fillText(offenses, 168, 275) // Criminal Offenses
     context.fillText(`$${bounty}`, 110, 295) // Bounty
