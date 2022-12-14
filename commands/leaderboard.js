@@ -65,6 +65,45 @@ module.exports = {
                             })
                             
 
+                    } else if (leaderboardtype === "offenses") {
+                        const topN = (arr, n) => {
+                            if(n > arr.length){
+                               return false;
+                            }
+                            return arr
+                            .slice()
+                            .sort((a, b) => {
+                               return b.CRIMINAL_OFFENSES.length - a.CRIMINAL_OFFENSES.length
+                            })
+                            .slice(0, n);
+                         };
+
+                        const topOffenses = topN(villain_list, 10);
+                        let topList = []
+                        let count = 0
+                        for(let offense of topOffenses) {
+                            let username = await interaction.client.users.fetch(offense.ID).catch(() => null);
+                            ++count
+                            count === 1 ? m = "👑" : m = ""
+                            topList.push(`${count.toString()} - **${username.username}** 🚓 **${offense.CRIMINAL_OFFENSES.length.toString()}** offenses ${m}\n`)
+                        }
+                        let message = topList.join("\n")
+                        const embedVar = new EmbedBuilder()
+                            .setTitle(`🚓 Criminal Offenses Leaderboard`)
+                            .setDescription(`${message}`)
+                            // .setAuthor({
+                            //     name: `📚 ${title}\nChapter ${chapterNumber.toString()}`,
+                            // })
+                            // .setFooter({
+                            //     text: `Page ${page} of ${pages.length}`
+                            // })
+                        
+                            await interaction.reply({
+                                embeds: [embedVar]
+                            })
+
+                    
+                    
                     } else {
                         await interaction.reply({
                             content: "This feature is currently under development. Please check back later.\n- *Goodle Bobdin*"
