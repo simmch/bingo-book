@@ -25,6 +25,14 @@ class Villain {
         return
     }
 
+    decreaseBounty(v){
+        this.BOUNTY = this.BOUNTY - Number(v)
+        if(this.BOUNTY < 0) {
+            this.BOUNTY = 0
+        }
+        return
+    }
+
     increaseCriminalOffense(b, p){
         for(let action of bountyActions) {
             if(action.value === b){
