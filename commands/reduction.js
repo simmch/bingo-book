@@ -52,7 +52,7 @@ module.exports = {
                         return ['✅', '🚫'].includes(reaction.emoji.name) && isAdmin;
                     };
 
-                    message.awaitReactions({ filter, max: 2, time: 30000 })
+                    message.awaitReactions({ filter, max: 4, time: 10000 })
                         .then(async collected => {
                             const thumbsUp = collected.first();
                             const thumbsDown = collected.last();
@@ -63,19 +63,22 @@ module.exports = {
                                 villain.customIncreaseCriminalOffense("Bounty reduction request accepted. ", amount)
                                 villain.setRank()
                                 await update({"ID": villain.ID.toString()},{"$set": villain})
-
-                                message.reply({
-                                    content: `Bounty reduction request accepted.`,
-                                    ephemeral: false
+                                message.reactions.removeAll();
+                                await interaction.editReply({
+                                    content: `${interaction.user.username} Bounty reduction request accepted. Bounty has been reduced by 💵 ${amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+                                    embeds: [],
                                 });
                             } else {
-                                message.reply('The motion to reduce your bounty did not pass.');
+                                message.reactions.removeAll();
+                                await interaction.editReply(`${interaction.user.username} The motion to reduce your bounty did not pass.`);
                             }
                         })
-                        .catch(collected => {
-                            message.reply({
-                                content: 'You reacted with neither a thumbs up, nor a thumbs down.',
-                                ephemeral: true
+                        .catch(async collected => {
+                            // await interaction.deleteReply();
+                            message.reactions.removeAll();
+                            await interaction.editReply({
+                                content: `${interaction.user.username} The motion to reduce your bounty did not pass.`,
+                                embeds: []
                             });
                         });
 
