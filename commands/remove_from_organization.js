@@ -11,12 +11,12 @@ const { bountyImage } = require("../utilities/bounty_canva")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("addorganizationmember")
-        .setDescription("Invite to the organization")
+        .setName("removeorganizationmember")
+        .setDescription("Remove from the organization")
         .addUserOption(option => 
             option
                 .setName("criminal")
-                .setDescription("Criminal to invite")
+                .setDescription("Criminal to remove")
                 .setRequired(true)
         ),
         async execute(interaction) {
@@ -27,11 +27,11 @@ module.exports = {
 
                 const villain_info = await villain_api.read({"ID": theirId})
                 const organization_info = await organizations_api.read({"OFFICERS": yourId})
-                const they_are_in_a_team = await organizations_api.read({"MEMBERS": theirId})
+                // const they_are_in_a_team = await organizations_api.read({"MEMBERS": theirId})
                 // Checks
                 if(!villain_info){
                     await interaction.reply({
-                        content: "You can only invite criminals into your criminal organization!",
+                        content: "This individual is not in your organization.",
                         ephemeral: true
                     })
                     return
@@ -47,23 +47,15 @@ module.exports = {
 
                 if(yourId === theirId){
                     await interaction.reply({
-                        content: "You're already in the criminal organization!",
+                        content: "You cannot remove yourself from your own criminal organization! Instead, you may disband the organization altogether by using the command **/deleteorganization**",
                         ephemeral: true
                     })
                     return
                 }
 
-                if(organization_info.MEMBERS.includes(villain_info.ID)){
+                if(!organization_info.MEMBERS.includes(villain_info.ID)){
                     await interaction.reply({
-                        content: 'This criminal is already in your organization.',
-                        ephemeral: true
-                    })
-                    return
-                }
-
-                if(they_are_in_a_team){
-                    await interaction.reply({
-                        content: `This criminal is already a part of an organization.`,
+                        content: 'This criminal is not in your organization.',
                         ephemeral: true
                     })
                     return
@@ -81,39 +73,21 @@ module.exports = {
                         .setStyle(ButtonStyle.Danger)
                 )
 
-                const message = await interaction.reply({
-                    content: `${criminal}, will you join **${organization_info.NAME}**?`,
-                    components: [row]
+                let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF )
+                /// come back to this right here to continue
+                organization.removeFromTeam(villain_info)
+                const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})
+                await i.update({
+                    content: `**${criminal}** has been removed from the criminal organization.`,
+                    ephemeral: true,
+                    components: []
                 })
-                const filter = i => i.user.id === theirId;
-
-                const collector = message.createMessageComponentCollector({filter, time: 15000})
-
-                collector.on('collect', async i => {
-                    if(i.customId === 'yes'){
-                        let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF )
-                        /// come back to this right here to continue
-                        organization.addToTeam(villain_info)
-                        const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})
-                        await i.update({
-                            content: `**${criminal}** has been added to the criminal organization.`,
-                            ephemeral: true,
-                            components: []
-                        })
-                    }
-                    if(i.customId === 'no'){
-                        await i.update({
-                            content: `Invitation denied.`,
-                            ephemeral: true,
-                            components: []
-                        })
-                    }
-                })
+                    
 
 
             } catch(err) {
                 console.log(err)
-                if(err) await interaction.reply("There was an issue with creating this organization. Please seek developer support.")
+                if(err) await interaction.reply("There was an issue with removing this criminal from this organization. Please seek developer support.")
                 return
             }
         }

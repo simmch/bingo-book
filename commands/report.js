@@ -4,7 +4,9 @@ const { EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ComponentType } = req
 const { read, create, update } = require("../service/api")
 const { bountyActions, bountyCheck} = require("../utilities")
 const { villainClass } = require("../classes/villain");
+const { organizationClass } = require("../classes/organization")
 const { bountyImage } = require("../utilities/bounty_canva")
+const organizations_api = require("../service/api/organizations_api")
 
 
 
@@ -37,6 +39,7 @@ module.exports = {
                 const custom_offense = interaction.options.getString("customoffense")
                 const custom_bounty = interaction.options.getString("custombounty")
                 const id = criminal.id
+                const organization_info = await organizations_api.read({"MEMBERS": id})
                 if(id === interaction.user.id){
                     await interaction.reply({
                         content: "No self reporting!",
@@ -112,7 +115,13 @@ module.exports = {
                                     villain.increaseCriminalOffense(updatebounty.toString(), updatebounty.toString())
                                     villain.setRank()
                                     await update({"ID": villain.ID.toString()},{"$set": villain})
-                                    // let image = await bountyImage(criminal, villain)
+                                    
+                                    if(organization_info){
+                                        let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF )
+                                        organization.sumTeamBounty(updatebounty)
+                                        const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})                        
+                                    }
+
                                     await i.reply({
                                         content: `Increased Bounty by **${updatebounty}**`,
                                         ephemeral: true

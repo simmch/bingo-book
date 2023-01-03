@@ -22,9 +22,22 @@ class Organization {
         return 
     }
 
-    // removeFromTeam(id){
+    removeFromTeam(criminal){
+        const m = this.MEMBERS.indexOf(criminal.ID)
+        const o = this.OFFICERS.indexOf(criminal.ID)
 
-    // }
+        this.BOUNTY = this.BOUNTY - criminal.BOUNTY
+
+        delete this.MEMBERS.splice(m, 1)
+        delete this.OFFICERS.splice(m, 1)
+        
+        return
+    }
+
+    sumTeamBounty(bounty){
+        this.BOUNTY = this.BOUNTY + bounty
+        return
+    }
 
    
 }

@@ -34,10 +34,19 @@ module.exports = {
 
                 const villain_info = await villain_api.read({"ID": id})
                 const organization_info = await organizations_api.read({"MEMBERS": id})
+                const organization_name_exists = await organizations_api.read({"NAME": name})
                 // Checks
                 if(!villain_info){
                     await interaction.reply({
                         content: "You are not a criminal!",
+                        ephemeral: true
+                    })
+                    return
+                }
+
+                if(organization_name_exists){
+                    await interaction.reply({
+                        content: "This criminal organization already exists.",
                         ephemeral: true
                     })
                     return
@@ -52,7 +61,7 @@ module.exports = {
                 }
 
 
-                let organization = new organizationClass(id, name, [id], [], id, villain_info.BOUNTY, "N/A", gif)
+                let organization = new organizationClass(id, name, [id], [id], id, villain_info.BOUNTY, "N/A", gif)
                 /// come back to this right here to continue
                 const response = await organizations_api.create(organization)
                 await interaction.reply({
