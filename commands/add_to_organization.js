@@ -58,6 +58,7 @@ module.exports = {
                         content: 'This criminal is already in your organization.',
                         ephemeral: true
                     })
+                    return
                 }
 
                 if(they_are_in_a_team){
