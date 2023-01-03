@@ -65,19 +65,22 @@ module.exports = {
                                 await update({"ID": villain.ID.toString()},{"$set": villain})
                                 message.reactions.removeAll();
                                 await interaction.editReply({
-                                    content: `${interaction.user.username} Bounty reduction request accepted. Bounty has been reduced by 💵 ${amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+                                    content: `${interaction.user} - Bounty reduction request accepted. Bounty has been reduced by 💵 ${amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
                                     embeds: [],
                                 });
                             } else {
                                 message.reactions.removeAll();
-                                await interaction.editReply(`${interaction.user.username} The motion to reduce your bounty did not pass.`);
+                                await interaction.editReply({
+                                    content: `${interaction.user} - The motion to reduce your bounty did not pass.`,
+                                    embeds: [],
+                                });
                             }
                         })
                         .catch(async collected => {
                             // await interaction.deleteReply();
                             message.reactions.removeAll();
                             await interaction.editReply({
-                                content: `${interaction.user.username} The motion to reduce your bounty did not pass.`,
+                                content: `${interaction.user} - The motion to reduce your bounty did not pass.`,
                                 embeds: []
                             });
                         });
