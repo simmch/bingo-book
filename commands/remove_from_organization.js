@@ -77,7 +77,7 @@ module.exports = {
                 /// come back to this right here to continue
                 organization.removeFromTeam(villain_info)
                 const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})
-                await i.update({
+                await interaction.reply({
                     content: `**${criminal}** has been removed from the criminal organization.`,
                     ephemeral: true,
                     components: []

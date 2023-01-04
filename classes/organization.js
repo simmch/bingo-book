@@ -17,6 +17,25 @@ class Organization {
         this.MESSAGE = MESSAGE
     }
 
+    demote(id) {
+        if(id === this.ID) return
+        if(this.OFFICERS.includes(id)){
+            const o = this.OFFICERS.indexOf(id)
+            delete this.OFFICERS.splice(o, 1)
+        } else {
+            return
+        }
+    }
+
+    promote(id) {
+        if(id === this.ID) return
+        if(!this.OFFICERS.includes(id)){
+            this.OFFICERS.push(id)
+        } else {
+            return
+        }        
+    }
+
     addToTeam(criminal){
         this.MEMBERS.push(criminal.ID)
         this.BOUNTY = this.BOUNTY + criminal.BOUNTY

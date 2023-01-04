@@ -21,14 +21,14 @@ module.exports = {
             )
         .addStringOption(option => 
                 option
-                    .setName("gif")
-                    .setDescription("Gif link that represents your organization")
+                    .setName("giforimage")
+                    .setDescription("Gif or Image link that represents your organization")
                     .setRequired(false)
             ),
         async execute(interaction) {
             try {
                 const name = interaction.options.getString("name")
-                const gif = interaction.options.getString("gif") || ""
+                const gif = interaction.options.getString("giforimage") || ""
                 const id = interaction.user.id
 
 
