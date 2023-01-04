@@ -61,7 +61,7 @@ module.exports = {
                 }
 
 
-                let organization = new organizationClass(id, name, [id], [id], id, villain_info.BOUNTY, "N/A", gif)
+                let organization = new organizationClass(id, name, [id], [id], id, villain_info.BOUNTY, "N/A", gif, "We are a new organization. Want to join?")
                 /// come back to this right here to continue
                 const response = await organizations_api.create(organization)
                 await interaction.reply({

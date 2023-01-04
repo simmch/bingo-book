@@ -91,7 +91,7 @@ module.exports = {
 
                 collector.on('collect', async i => {
                     if(i.customId === 'yes'){
-                        let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF )
+                        let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF, organization_info.MESSAGE )
                         /// come back to this right here to continue
                         organization.addToTeam(villain_info)
                         const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})

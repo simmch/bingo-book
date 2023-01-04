@@ -46,14 +46,16 @@ module.exports = {
                             const response = await organizations_api.remove({"ID": organization_info.ID})
                             await i.update({
                                 content: `The **${organization_info.NAME}** criminal organization has been deleted.`,
-                                ephemeral: true
+                                ephemeral: true,
+                                components: []
                             })
         
                         }
                         if(i.customId === 'no'){
                             await i.update({
                                 content: `Your organization was not deleted.`,
-                                ephemeral: true
+                                ephemeral: true,
+                                components: []
                             })
                         }
                     })

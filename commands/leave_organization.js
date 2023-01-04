@@ -40,7 +40,7 @@ module.exports = {
                         .setStyle(ButtonStyle.Danger)
                 )
 
-                let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF )
+                let organization = new organizationClass(organization_info.ID, organization_info.NAME, organization_info.MEMBERS, organization_info.OFFICERS, organization_info.OWNER, organization_info.BOUNTY, organization_info.RANK, organization_info.GIF, organization_info.MESSAGE )
                 /// come back to this right here to continue
                 organization.removeFromTeam(villain_info)
                 const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})

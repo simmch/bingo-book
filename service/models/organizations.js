@@ -21,6 +21,9 @@ const OrganizationSchema = new mongoose.Schema({
     },
     GIF: {
         type: String
+    },
+    MESSAGE: {
+        type: String
     }
 });
 

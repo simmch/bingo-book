@@ -5,7 +5,7 @@ const moment = require("moment")
 const today = moment().format('L')
 
 class Organization {
-    constructor(ID, NAME, MEMBERS, OFFICERS, OWNER, BOUNTY, RANK, GIF) {
+    constructor(ID, NAME, MEMBERS, OFFICERS, OWNER, BOUNTY, RANK, GIF, MESSAGE) {
         this.ID = ID
         this.NAME = NAME
         this.MEMBERS = MEMBERS
@@ -14,6 +14,7 @@ class Organization {
         this.BOUNTY = BOUNTY
         this.RANK = RANK
         this.GIF = GIF
+        this.MESSAGE = MESSAGE
     }
 
     addToTeam(criminal){
