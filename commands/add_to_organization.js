@@ -96,7 +96,7 @@ module.exports = {
                         organization.addToTeam(villain_info)
                         const response = await organizations_api.update({"ID": organization_info.ID}, {'$set': organization})
                         await i.update({
-                            content: `**${criminal}** has been added to the criminal organization.`,
+                            content: `**${criminal}** has been added to your criminal organization.`,
                             ephemeral: true,
                             components: []
                         })
