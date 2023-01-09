@@ -30,36 +30,36 @@ module.exports = {
                             .setStyle(ButtonStyle.Danger)
                     )
                 
-                // // Checks
-                // if(organization_info){
+                // Checks
+                if(organization_info){
 
-                //     const message = await interaction.reply({
-                //         content: `Are you sure you want to delete your organization, ${organization_info.NAME}?`,
-                //         components: [row]
-                //     })
-                //     const filter = i => i.user.id === id;
+                    const message = await interaction.reply({
+                        content: `Are you sure you want to delete your organization, ${organization_info.NAME}?`,
+                        components: [row]
+                    })
+                    const filter = i => i.user.id === organization_info.ID;
 
-                //     const collector = message.createMessageComponentCollector({filter, time: 15000})
+                    const collector = message.createMessageComponentCollector({filter, time: 15000})
 
-                //     collector.on('collect', async i => {
-                //         if(i.customId === 'yes'){
-                //             const response = await organizations_api.remove({"ID": organization_info.ID})
-                //             await i.update({
-                //                 content: `The **${organization_info.NAME}** criminal organization has been deleted.`,
-                //                 ephemeral: true,
-                //                 components: []
-                //             })
+                    collector.on('collect', async i => {
+                        if(i.customId === 'yes'){
+                            const response = await organizations_api.remove({"ID": organization_info.ID})
+                            await i.update({
+                                content: `The **${organization_info.NAME}** criminal organization has been deleted.`,
+                                ephemeral: true,
+                                components: []
+                            })
         
-                //         }
-                //         if(i.customId === 'no'){
-                //             await i.update({
-                //                 content: `Your organization was not deleted.`,
-                //                 ephemeral: true,
-                //                 components: []
-                //             })
-                //         }
-                //     })
-                // }
+                        }
+                        if(i.customId === 'no'){
+                            await i.update({
+                                content: `Your organization was not deleted.`,
+                                ephemeral: true,
+                                components: []
+                            })
+                        }
+                    })
+                }
 
             } catch(err) {
                 console.log(err)
