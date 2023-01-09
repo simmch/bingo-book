@@ -29,9 +29,19 @@ module.exports = {
                             .setLabel('No')
                             .setStyle(ButtonStyle.Danger)
                     )
+
+
                 
                 // Checks
                 if(organization_info){
+
+
+                    if(id != organization_info.ID){
+                        const m = await interaction.reply({
+                            content: `You cannot delete an organization you do not own.`,
+                        })
+                        return
+                    }
 
                     const message = await interaction.reply({
                         content: `Are you sure you want to delete your organization, ${organization_info.NAME}?`,
