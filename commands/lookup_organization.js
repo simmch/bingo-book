@@ -74,7 +74,6 @@ module.exports = {
                 }
                 let memberList = members.join("\n")
                 let officerList = officers.join("\n")
-                organization_info.GIF ? gif = organization_info.GIF : gif = ""
                 const embedVar = new EmbedBuilder()
                     .setTitle(`🕵️‍♂️ ${organization_info.NAME}`)
                     .setDescription(`💬 **Message of the day**\n${organization_info.MESSAGE}`)
@@ -83,13 +82,8 @@ module.exports = {
                         {name: "🕴️ Officers", value: `${officerList}`},
                         {name: "💰 Bounty", value: `💵 $${organization_info.BOUNTY.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                     )
-                    .setImage(gif)
-                    // .setAuthor({
-                    //     name: `📚 ${title}\nChapter ${chapterNumber.toString()}`,
-                    // })
-                    // .setFooter({
-                    //     text: `Page ${page} of ${pages.length}`
-                    // })
+                organization_info.GIF ? embedVar.setImage(gif) : ""
+
                 
                     await interaction.reply({
                         embeds: [embedVar]
