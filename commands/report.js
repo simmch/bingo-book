@@ -91,7 +91,8 @@ module.exports = {
                 }
 
                 await interaction.reply({
-                    content: `**${criminal}** has been reported. Check the Bingo Book channel for additional details.`,
+                    content: `**${criminal}** has been reported.`,
+                    ephemeral: true
                 })
                  
             } catch(err) {
