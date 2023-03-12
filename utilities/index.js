@@ -133,6 +133,11 @@ const bountyCheck = (discordInfo, dbInfo) => {
     }
 }
 
+const channelName = "🗣︱bingo-book"
+function getChannelByName(client) {
+    return client.channels.cache.find(channel => channel.name === channelName);
+}
+
 /**
  * Make command for debate wins specifically
  * Command will be named debate
@@ -147,5 +152,6 @@ module.exports = {
     ranks: rankLists,
     bountyActions: bountyActions,
     bountyLosses: loseBounty,
-    bountyCheck: bountyCheck
+    bountyCheck: bountyCheck,
+    getChannelByName: getChannelByName,
 }
