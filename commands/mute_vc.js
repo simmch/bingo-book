@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
+const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus } = require('@discordjs/voice');
 const { PermissionsBitField  } = require("discord.js")
 const { EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ComponentType } = require("discord.js");
 const { read, create, update } = require("../service/api")
@@ -25,6 +26,14 @@ module.exports = {
                 const operation = interaction.options.getString("operation");
                 const invoker = interaction.member;
                 const channel = invoker.voice.channel;
+                const guild = interaction.guild;
+
+                // Connect to the voice channel
+                const connection = joinVoiceChannel({
+                    channelId: channel.id,
+                    guildId: guild.id,
+                    adapterCreator: guild.voiceAdapterCreator,
+                });
 
                 // Check if the command invoker is in a voice channel
                 if (!channel) {
@@ -76,7 +85,14 @@ module.exports = {
 
                 }
     
-                // await interaction.reply(`Everyone in the voice channel has been ${operation === 'mute' ? 'muted' : 'unmuted'}!`);
+
+                // If the operation was "unmute", disconnect the bot from the voice channel
+                if (operation === "unmute") {
+                    const connection = getVoiceConnection(guild.id);
+                    if (connection) {
+                        connection.destroy();
+                    }
+                }                
                  
             } catch(err) {
                 console.log(err)
