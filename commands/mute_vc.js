@@ -71,6 +71,16 @@ module.exports = {
                         embeds: [embed]
                     });
                 } else {
+
+                    // If the operation was "unmute", disconnect the bot from the voice channel
+                    if (operation === "unmute") {
+                        const connection = getVoiceConnection(guild.id);
+                        if (connection) {
+                            connection.destroy();
+                        }
+                    }    
+
+
                     embed = new EmbedBuilder()
                     .setTitle(`🔈Mute No Jutsu!`)
                     .setColor("#00ff00")
@@ -83,16 +93,7 @@ module.exports = {
                         embeds: [embed]
                     });
 
-                }
-    
-
-                // If the operation was "unmute", disconnect the bot from the voice channel
-                if (operation === "unmute") {
-                    const connection = getVoiceConnection(guild.id);
-                    if (connection) {
-                        connection.destroy();
-                    }
-                }                
+                }            
                  
             } catch(err) {
                 console.log(err)
