@@ -19,7 +19,7 @@ module.exports = {
                         {name: "🔈Unmute", value: "unmute"}
                     )
             )
-        .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.MuteMembers),
         async execute(interaction) {
             try {
                 const operation = interaction.options.getString("operation");
