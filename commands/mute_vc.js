@@ -97,7 +97,10 @@ module.exports = {
                  
             } catch(err) {
                 console.log(err)
-                if(err) await interaction.reply("There was an issue with the muting operation. Please seek developer support.")
+                if(err) await interaction.reply({
+                    content: "There was an error trying to execute that command!",
+                    ephemeral: true
+                })
                 return
             }
         }
