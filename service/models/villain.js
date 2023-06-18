@@ -18,7 +18,10 @@ const VillainSchema = new mongoose.Schema({
     },
     CRIMINAL_OFFENSES: {
         type: Array
-    }
+    }, 
+    FLAGS: {
+        type: Number
+    },
 });
 
 const collection = "VILLAINS";

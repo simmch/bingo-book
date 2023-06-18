@@ -68,7 +68,7 @@ module.exports = {
 
                 if(custom_offense && custom_bounty){
                     if (villain_info) {
-                        let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES);
+                        let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES, villain_info.FLAG);
                         villain.increaseBounty(custom_bounty)
                         villain.customIncreaseCriminalOffense(custom_offense, custom_bounty.toString())
                         villain.setRank()
@@ -78,7 +78,7 @@ module.exports = {
                             embeds: [embedVar],
                         })
                     } else {
-                        let villain = new villainClass(id, "N/A", "D", 0, [], []);
+                        let villain = new villainClass(id, "N/A", "D", 0, [], [], 1);
                         villain.increaseBounty(custom_bounty)
                         villain.customIncreaseCriminalOffense(custom_offense, custom_bounty.toString())
                         villain.setRank()

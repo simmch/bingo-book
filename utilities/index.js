@@ -138,6 +138,10 @@ function getChannelByName(client) {
     return client.channels.cache.find(channel => channel.name === channelName);
 }
 
+function getChannelById(client, channelId) {
+    return client.channels.cache.find(channel => channel.id === channelId);
+}
+
 /**
  * Make command for debate wins specifically
  * Command will be named debate
@@ -154,4 +158,5 @@ module.exports = {
     bountyLosses: loseBounty,
     bountyCheck: bountyCheck,
     getChannelByName: getChannelByName,
+    getChannelById: getChannelById
 }

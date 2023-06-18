@@ -57,7 +57,7 @@ module.exports = {
                     await update({"ID": villain.ID.toString()}, {"$set": villain})
                     let image = await bountyImage(criminal, villain)
                 } else {
-                    let villain = new villainClass(id, "N/A", "D", 0, [], []);
+                    let villain = new villainClass(id, "N/A", "D", 0, [], [], 1);
                     villain.increaseBounty(custom_bounty)
                     villain.increaseDebateWin(opponent.id, debateTopic)
                     villain.setRank()

@@ -6,13 +6,14 @@ const today = moment().format('L')
 
 
 class Villain {
-    constructor(ID, CUSTOM_TITLE, RANK, BOUNTY, DEBATES, CRIMINAL_OFFENSES) {
+    constructor(ID, CUSTOM_TITLE, RANK, BOUNTY, DEBATES, CRIMINAL_OFFENSES, FLAG) {
         this.ID = ID
         this.CUSTOM_TITLE = CUSTOM_TITLE
         this.RANK = RANK
         this.BOUNTY = BOUNTY
         this.DEBATES = DEBATES
         this.CRIMINAL_OFFENSES = CRIMINAL_OFFENSES
+        this.FLAG = FLAG
     }
 
     
