@@ -22,6 +22,14 @@ module.exports = {
             const originalName = criminal.nickname;
             const user = await guild.members.fetch(criminal)
 
+            if(criminal.permissions.has(PermissionsBitField.Flags.Administrator) || criminal.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
+                await interaction.reply({
+                    content: "You cannot jail a mod or an admin as they have diplomatic immunity.",
+                    ephemeral: true
+                });
+                return;
+            }
+
             // await user.timeout(3 * 60 * 1000)
             const randomNumber = Math.floor(Math.random() * 10000);  // Generate a random number between 0 and 9999
             await user.setNickname(`⛓️ PRISONER-NUMBER-${randomNumber} ⛓️`);
