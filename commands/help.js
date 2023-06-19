@@ -20,6 +20,9 @@ module.exports = {
                     .setTitle(`🕵️‍♂️ Bingo Book Help!`)
                     .setDescription(`Learn the Bingo Book commands.`)
                     .addFields(
+                        {name: "/jail", value: `Use to jail a criminal for 5 minutes`},
+                        {name: "/addquote", value: `Use to add a quote to the database`},
+                        {name: "/listquotes", value: `Use to list all quotes in the database`},
                         {name: "/report", value: `Mods and Staff only. Use to report criminal behavior`},
                         {name: "/reduction", value: `Use to request a Bounty reduction. Must be accepted by 2 or more mods or staff`},
                         {name: "/debatewin", value: `Mods and Staff only. Report debate wins`},
