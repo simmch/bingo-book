@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const { read, create, update } = require("../service/api/quotable_api")
+const { EmbedBuilder } = require("discord.js");
 
 
 
@@ -28,10 +29,14 @@ module.exports = {
                 const response = await create(create_query)
 
                 if (response) {
-                    await interaction.reply({
-                        content: "Quote successfully added to the database.",
-                        ephemeral: true
-                    })
+                    const embedVar = new EmbedBuilder()
+                        .setTitle(`🆕 Dojo Quote Added!`)
+                        .setDescription(`💬 ${quote} - ${quoter}`)
+                        .setTimestamp()
+                    
+                        await interaction.reply({
+                            embeds: [embedVar]
+                        })
                 } else {
                     await interaction.reply({
                         content: "There was an error adding the quote to the database.",

@@ -30,11 +30,11 @@ module.exports = {
                     for(let quote of quote_list) {
                         let username = await interaction.client.users.fetch(quote.OWNER).catch(() => null);
                         ++count
-                        quoteList.push(`**QID${quote.ID}** - ${username} 💬 ${quote.QUOTE}\n`)
+                        quoteList.push(`💬 ${quote.QUOTE} - ${username}\n`)
                     }
                     let message = quoteList.join("\n")
                     const embedVar = new EmbedBuilder()
-                        .setTitle(`💬 Dojo Quotables`)
+                        .setTitle(`Dojo Quotables 📚`)
                         .setDescription(`${message}`)
                         .setTimestamp()
                     
