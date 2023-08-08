@@ -22,6 +22,11 @@ module.exports = {
             ),
         async execute(interaction) {
             try {
+                await interaction.reply({
+                    content: "The addquote command is currently disabled.",
+                    ephemeral: true
+                })
+                return
                 const quoter = interaction.options.getUser("quoter")
                 const quote = interaction.options.getString("quote")
                 const id = Math.floor(Math.random() * 10000)

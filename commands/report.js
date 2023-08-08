@@ -91,8 +91,7 @@ module.exports = {
                 }
 
                 await interaction.reply({
-                    content: `**${criminal}** has been reported.`,
-                    ephemeral: true
+                    content: `**${criminal}** has been reported.`,                    
                 })
                  
             } catch(err) {
