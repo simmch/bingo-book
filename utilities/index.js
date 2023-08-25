@@ -133,7 +133,7 @@ const bountyCheck = (discordInfo, dbInfo) => {
     }
 }
 
-const channelName = "🗣︱bingo-book"
+const channelName = "📇︱bingo-book"
 function getChannelByName(client) {
     return client.channels.cache.find(channel => channel.name === channelName);
 }
