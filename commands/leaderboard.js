@@ -18,6 +18,7 @@ module.exports = {
                 .setDescription("which leaderboard would you like to see")
                 .setRequired(true)
                 .addChoices(
+                    {name: '🏦 Hall of Fame', value: 'hall'},
                     {name: '🚓 Offenses Leaderboard', value: 'offenses'},
                     {name: '💰 Bounty Leaderboard', value: 'bounties'}
                 )
@@ -104,6 +105,63 @@ module.exports = {
 
                     
                     
+                    
+                    } else if (leaderboardtype === "hall"){
+                        const villain_list = await readAll();
+                        let listOfEmbeds = [];
+                        for (let villain_info of villain_list) {
+                            if (villain_info && villain_info.CRIMINAL_OFFENSES.length >= 1) {
+                                let villain = new villainClass(villain_info.ID, villain_info.CUSTOM_TITLE, villain_info.RANK, villain_info.BOUNTY, villain_info.DEBATES, villain_info.CRIMINAL_OFFENSES);
+                        
+                                function chunk(items, size) {
+                                    const chunks = []
+                                    items = [].concat(...items)
+                                    
+                                    while (items.length) {
+                                        chunks.push(
+                                            items.splice(0, size)
+                                        )
+                                    }
+                                    return chunks
+                                }
+                        
+                                const highBountyOffenses = villain.CRIMINAL_OFFENSES.filter(offense => offense.BOUNTY > 500000);
+                                let offenseChunks = chunk(highBountyOffenses, 5);
+                                
+                                for(let offense of offenseChunks){
+                                    let m = [];
+                                    for(let v of offense){
+                                        m.push(`<@${villain.ID}> - **${v.OFFENSE}**\n💵 $${v.BOUNTY.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}\n${v.DATE}\n`)
+                                    }
+                                    let j = m.join("\n")
+                                    const embedVar = new EmbedBuilder()
+                                        .setTitle(`📔 Hall of Fame Criminal Records`)
+                                        .setDescription(`${j}`)
+                                        
+                                    listOfEmbeds.push(embedVar)
+                                }
+                        
+
+                            }
+                        }
+                        if(listOfEmbeds.length >= 1){
+                            listOfEmbeds.length <= 25 ? selectMenu = true : selectMenu = false
+
+                            const buttons = [
+                                { label: 'Previous', style: 'Danger' },
+                                { label: 'Next', style: 'Success' },
+                             ];
+                             
+                             new Pagination()
+                                .setCommand(interaction)
+                                .setPages(listOfEmbeds)
+                                .setButtons(buttons)
+                                .setPaginationCollector({ timeout: 120000 })
+                                .setSelectMenu({ enable: selectMenu })
+                                .setFooter({ enable: true })
+                                .send();
+                        }                    
+
                     } else {
                         await interaction.reply({
                             content: "This feature is currently under development. Please check back later.\n- *Goodle Bobdin*"

@@ -47,7 +47,6 @@ module.exports = {
                     for(let offense of offenseChunks){
                         let m = []
                         for(let v of offense){
-                            // console.log(v)
                             m.push(`**${v.OFFENSE}**\n💵 $${v.BOUNTY.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}\n${v.DATE}\n`)
                         }
                         // console.log(m)
@@ -57,12 +56,6 @@ module.exports = {
                             .setDescription(`${j}`)
                             .setImage('attachment://profile-image.png')
                             .setThumbnail(criminal.displayAvatarURL())
-                            // .setAuthor({
-                            //     name: `📚 ${title}\nChapter ${chapterNumber.toString()}`,
-                            // })
-                            // .setFooter({
-                            //     text: `Page ${page} of ${pages.length}`
-                            // })
                             
     
                         listOfEmbeds.push(embedVar)
