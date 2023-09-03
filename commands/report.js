@@ -37,7 +37,13 @@ module.exports = {
             try {
                 const criminal = interaction.options.getUser("criminal")
                 const custom_offense = interaction.options.getString("customoffense")
-                const custom_bounty = interaction.options.getString("custombounty")
+                let custom_bounty = interaction.options.getString("custombounty");
+
+                // Remove commas and keep only numbers
+                let numbersOnly = custom_bounty.replace(/,/g, '');
+                
+                // Reassign the modified value back to custom_bounty
+                custom_bounty = numbersOnly;                
                 if(!custom_offense || !custom_bounty){ 
                     await interaction.reply({content: "Please provide a custom offense and bounty number.", ephemeral: true})
                     return
