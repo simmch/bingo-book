@@ -1,13 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { PermissionFlagsBits } = require("discord.js")
 const { EmbedBuilder } = require("discord.js");
-const { read, create, update } = require("../service/api")
 const openai = require("openai");
 const prompts = require("../utilities/prompts")
 const { villainClass } = require("../classes/villain");
-const { bountyImage } = require("../utilities/bounty_canva")
-const organizations_api = require("../service/api/organizations_api")
-const axios = require("axios")
+const quiz_questions_api = require("../service/api/quiz_questions_api")
 
 const ai = new openai.OpenAI({apiKey: process.env.OPENAI_API_KEY})
 
@@ -22,7 +18,7 @@ module.exports = {
                     .addChoices(
                         {name: "Basic", value: "basic"},
                         {name: "Difficult", value: "difficult"},
-                        {name: "Super Difficult", value: "super difficult"},
+                        {name: "Impossible", value: "impossible"},
                     )
             )
         .addStringOption(option => 
@@ -60,28 +56,52 @@ module.exports = {
                 const id = interaction.user.id
                 // const organization_info = await organizations_api.read({"MEMBERS": id})
                 // const villain_info = await read({"ID": id})
-
-                async function getQuestion(difficulty, amount, category) {
+                
+                async function getQuestion(difficulty, category) {
                     try {
-                        const prompt = prompts.quizPrompt(difficulty, amount, category)
+                        let prompt;
+                
+                        if (difficulty === "basic") {
+                            prompt = prompts.basicPrompt(category);
+                        } else if (difficulty === "difficult") {
+                            prompt = prompts.difficultPrompt(category);
+                        } else if (difficulty === "impossible") {
+                            prompt = prompts.impossiblePrompt(category);
+                        } else {
+                            throw new Error("Invalid difficulty level");
+                        }
+                
                         const completion = await ai.chat.completions.create({
-                            messages: [{role: 'user', content: prompt}],
+                            messages: [{ role: 'user', content: prompt }],
                             model: 'gpt-3.5-turbo-16k',
-                        })
-
-                        return completion.choices[0].message.content
-                    } catch(err) {
-                        console.log(err)
-                        if(err) await interaction.editReply("There was an issue with getting the question. Please seek developer support.")
-                        return false
+                        });
+                
+                        return completion.choices[0].message.content;
+                    } catch (error) {
+                        console.error(error);
+                        throw new Error("There was an issue with getting the question. Please seek developer support.");
                     }
                 }
+
+                function generateRandom7DigitNumber() {
+                    const min = 1000000; // Minimum 7-digit number (inclusive)
+                    const max = 9999999; // Maximum 7-digit number (inclusive)
+                    const random7DigitNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+                    return random7DigitNumber;
+                }
                 
-                const quizData = await getQuestion(difficulty, 1, anime)
+                const quizData = await getQuestion(difficulty, anime)
                 if(!quizData) return
                 const quiz = JSON.parse(quizData)
-                console.log(quiz)
-
+                const quiz_question_object = {
+                    ID: generateRandom7DigitNumber(),
+                    QUESTION: quiz.question,
+                    ANSWERS: quiz.answers,
+                    CORRECT_ANSWER: quiz.correct_answer,
+                    CATEGORY: anime
+                }
+                const quiz_question_saved = await quiz_questions_api.create(quiz_question_object)
+                
                 var embedVar = new EmbedBuilder()
                     .setTitle(`🕵️‍♂️ ${anime} quiz`)
                     .setDescription(`${quiz.question}\na) ${quiz.answers.a}\nb) ${quiz.answers.b}\nc) ${quiz.answers.c}\nd) ${quiz.answers.d}`)
