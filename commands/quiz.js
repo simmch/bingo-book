@@ -104,7 +104,7 @@ module.exports = {
                 
                 var embedVar = new EmbedBuilder()
                     .setTitle(`🕵️‍♂️ ${anime} quiz`)
-                    .setDescription(`${quiz.question}\na) ${quiz.answers.a}\nb) ${quiz.answers.b}\nc) ${quiz.answers.c}\nd) ${quiz.answers.d}`)
+                    .setDescription(`${quiz.question}\n\na) ${quiz.answers.a}\nb) ${quiz.answers.b}\nc) ${quiz.answers.c}\nd) ${quiz.answers.d}`)
 
                     .setTimestamp()
                 
@@ -131,11 +131,11 @@ module.exports = {
                     collector.stop(); // Stop collecting responses
                 });
 
-                collector.on('end', (collected, reason) => {
-                    if (reason === 'time') {
-                        message.channel.send('Time is up! Quiz expired.');
-                    }
-                });
+                // collector.on('end', (collected, reason) => {
+                //     if (reason === 'time') {
+                //         message.channel.send('Time is up! Quiz expired.');
+                //     }
+                // });
 
             //     if(custom_offense && custom_bounty){
             //         if (villain_info) {
@@ -167,7 +167,7 @@ module.exports = {
                  
             } catch(err) {
                 console.log(err)
-                if(err) await interaction.editReply("There was an issue with reporting this offense. Please seek developer support.")
+                if(err) await interaction.editReply("Uh Oh! The trivia question didn't load properly. Please, try again!")
                 return
             }
         }
