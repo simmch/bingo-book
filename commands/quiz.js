@@ -57,8 +57,8 @@ module.exports = {
                     return
                 }
                 const id = interaction.user.id
-                const organization_info = await organizations_api.read({"MEMBERS": id})
-                const villain_info = await read({"ID": id})
+                // const organization_info = await organizations_api.read({"MEMBERS": id})
+                // const villain_info = await read({"ID": id})
 
                 async function getQuestion(difficulty, amount, category) {
                     try {
