@@ -22,6 +22,7 @@ module.exports = {
                     .addChoices(
                         {name: "Basic", value: "basic"},
                         {name: "Difficult", value: "difficult"},
+                        {name: "Super Difficult", value: "super difficult"},
                     )
             )
         .addStringOption(option => 
