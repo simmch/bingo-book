@@ -1,0 +1,16 @@
+export const anime_category_list = [
+    "Naruto",
+    "One Piece",
+    "Bleach",
+    "Dragon Ball",
+    "Hunter x Hunter",
+    "My Hero Academia",
+    "Demon Slayer",
+    "Attack on Titan",
+    "Fullmetal Alchemist",
+    "Tokyo Ghoul",
+    "Death Note",
+    "Sword Art Online",
+    "Code Geass",
+    "Fairy Tail",
+];  // Array of anime categories for the quiz command

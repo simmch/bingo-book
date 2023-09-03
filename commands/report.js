@@ -1,10 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const { PermissionFlagsBits } = require("discord.js")
-const { EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ComponentType } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { read, create, update } = require("../service/api")
-const { bountyActions, bountyCheck, getChannelByName} = require("../utilities")
+const { bountyCheck, getChannelByName} = require("../utilities")
 const { villainClass } = require("../classes/villain");
-const { organizationClass } = require("../classes/organization")
 const { bountyImage } = require("../utilities/bounty_canva")
 const organizations_api = require("../service/api/organizations_api")
 
