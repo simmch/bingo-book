@@ -14,9 +14,6 @@ const QuizSchema = new mongoose.Schema({
     CORRECT_ANSWER: {
         type: String,
     },
-    CATEGORY: {
-        type: String,
-    },
 });
 
 const collection = "QUIZ_QUESTIONS";
