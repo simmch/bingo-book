@@ -27,12 +27,33 @@ module.exports = {
                             messages: [{ role: 'user', content: prompt }],
                             model: 'gpt-3.5-turbo-16k',
                         });
-                        console.log(completion.choices[0].message.content)
-                        return completion.choices[0].message.content;
+                        // In your getQuestion function, after receiving the response:
+                        const rawResponse = completion.choices[0].message.content;
+                        const jsonResponse = validateJSONFormat(rawResponse);
+                        console.log(jsonResponse)
+                        return jsonResponse;
                     } catch (error) {
                         console.error(error);
                         throw new Error("There was an issue with getting the question. Please seek developer support.");
                     }
+                }
+
+                function validateJSONFormat(response) {
+                    // Convert the response to a string
+                    let strResponse = String(response);
+                
+                    // Replace single quotes with double quotes
+                    strResponse = strResponse.replace(/'/g, '"');
+                
+                    // Escape any unescaped double quotes inside string values
+                    strResponse = strResponse.replace(/"(.*?)"/g, function(match, p1) {
+                        return '"' + p1.replace(/(?<!\\)"/g, '\\"') + '"';
+                    });
+                
+                    // Use a regular expression to ensure all keys are enclosed in double quotes
+                    strResponse = strResponse.replace(/(?<!["\w])\s*([\w]+)\s*:/g, '"$1":');
+                
+                    return strResponse;
                 }
 
                 function generateRandom7DigitNumber() {
