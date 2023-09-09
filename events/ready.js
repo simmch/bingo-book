@@ -1,6 +1,12 @@
 require("dotenv").config();
 const { REST } = require("@discordjs/rest");
+const { EmbedBuilder } = require("discord.js");
 const { Routes } = require("discord-api-types/v9");
+const openai = require("openai");
+const prompts = require("../utilities/prompts")
+
+const ai = new openai.OpenAI({apiKey: process.env.OPENAI_API_KEY})
+
 
 module.exports = {
     name: "ready",
@@ -29,6 +35,37 @@ module.exports = {
                     });
                     console.log("Successfully registered commands locally.");
                 }
+                async function getHotTake() {
+                    try {
+                        let prompt;
+                
+                        prompt = prompts.hotTakePrompt();
+                        const completion = await ai.chat.completions.create({
+                            messages: [{ role: 'user', content: prompt }],
+                            model: 'gpt-3.5-turbo-16k',
+                        });
+                        console.log(completion.choices[0].message.content)
+                        return completion.choices[0].message.content;
+                    } catch (error) {
+                        console.error(error);
+                        throw new Error("There was an issue with getting the question. Please seek developer support.");
+                    }
+                }
+
+
+
+                    // Set an interval to run every hour (3600000 milliseconds)
+                setInterval(async () => {
+                    // Loop through all guilds (servers) the bot is a member of
+                    const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
+                    const hot_take = await getHotTake()
+                
+                    const embedVar = new EmbedBuilder()
+                        .setTitle(`🔥 Anime Hot Take`)
+                        .setDescription(hot_take)
+                        .setTimestamp()
+                    channel.send({ embeds: [embedVar] });
+                }, 1800000); // 1 hour in milliseconds
             } catch (err) {
                 if (err) console.error(err);
             }
