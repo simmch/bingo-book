@@ -14,7 +14,7 @@ const basicPrompt = () => {
 }
 
 const hotTakePrompt = () => {
-  return `[You are a critic.] Give me an anime hot take. Only respond with the hot take, not the question.`
+  return `[You are a critic.] Give me an anime hot take.`
 }
 
 module.exports = {
