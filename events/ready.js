@@ -59,6 +59,8 @@ module.exports = {
                     // Loop through all guilds (servers) the bot is a member of
                     const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
                     const hot_take = await getHotTake()
+
+                    console.log(hot_take)
                 
                     const embedVar = new EmbedBuilder()
                         .setTitle(`🔥 Anime Hot Take`)
