@@ -27,11 +27,12 @@ module.exports = {
                             messages: [{ role: 'user', content: prompt }],
                             model: 'gpt-3.5-turbo-16k',
                         });
+
                         // In your getQuestion function, after receiving the response:
                         const rawResponse = completion.choices[0].message.content;
-                        const jsonResponse = validateJSONFormat(rawResponse);
-                        console.log(jsonResponse)
-                        return jsonResponse;
+                        // const jsonResponse = validateJSONFormat(rawResponse);
+                        console.log(rawResponse)
+                        return rawResponse;
                     } catch (error) {
                         console.error(error);
                         throw new Error("There was an issue with getting the question. Please seek developer support.");
@@ -55,7 +56,8 @@ module.exports = {
                 
                     return strResponse;
                 }
-
+            
+                
                 function generateRandom7DigitNumber() {
                     const min = 1000000; // Minimum 7-digit number (inclusive)
                     const max = 9999999; // Maximum 7-digit number (inclusive)
@@ -97,7 +99,21 @@ module.exports = {
                     if (selectedAnswer === quiz.correct_answer) {
                         message.channel.send('Correct answer!');
                     } else {
-                        message.channel.send(`Incorrect answer! The correct answer was **${quiz.correct_answer}**.`);
+                        try {
+                            let prompt;
+                    
+                            prompt = prompts.incorrectAnswerPrompt(quiz.correct_answer.toUpperCase());
+                            const completion = await ai.chat.completions.create({
+                                messages: [{ role: 'user', content: prompt }],
+                                model: 'gpt-3.5-turbo-16k',
+                            });
+    
+                            message.channel.send(`${completion.choices[0].message.content}`);
+                        } catch (error) {
+                            console.error(error);
+                            throw new Error("There was an issue with getting the question. Please seek developer support.");
+                        }
+    
                     }
                     // await msg.delete();
                     collector.stop(); // Stop collecting responses

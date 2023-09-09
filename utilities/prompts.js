@@ -1,21 +1,30 @@
 const basicPrompt = () => {
     return `
     Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
-        question: '',
-        answers: {
-          a: '',
-          b: '',
-          c: '',
-          d: ''
+        "question": '',
+        "answers": {
+          "a": '',
+          "b": '',
+          "c": '',
+          "d": ''
         },
-        correct_answer: ''
+        "correct_answer": ''
       }
+      Replace all double quotes with single quotes in the response
     `
 }
 
 const hotTakePrompt = () => {
   return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take.`
 }
+
+
+const incorrectAnswerPrompt = (correct_answer) => {
+    return `
+    [You are an urban youth] I got the answer to trivia wrong and the correct answer was ${correct_answer}. Let me know I got the answer wrong. Keep the response relatively short, no more than 4 sentences. Feel free to add emojis. You don't have to be nice all the time.
+    `
+}
+
 
 const animeMangaList = [
   "Naruto",
@@ -226,5 +235,6 @@ function getRandomAnime() {
 
 module.exports = {
     basicPrompt,
-    hotTakePrompt
+    hotTakePrompt,
+    incorrectAnswerPrompt
 }
