@@ -1,6 +1,6 @@
 const basicPrompt = () => {
     return `
-    Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
+    [You are an urban youth] Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
         "question": '',
         "answers": {
           "a": '',
