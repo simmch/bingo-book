@@ -32,6 +32,13 @@ const timeoutPrompt = () => {
 }
 
 
+const correctAnswerPrompt = () => {
+  return `
+  [You are an urban youth.] I got the answer to trivia correct, but it's not good enough. Let me know I got the answer correct, but humble me. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
+  `
+}
+
+
 const animeMangaList = [
   "Naruto",
   "Bleach",
@@ -243,5 +250,6 @@ module.exports = {
     basicPrompt,
     hotTakePrompt,
     incorrectAnswerPrompt,
-    timeoutPrompt
+    timeoutPrompt,
+    correctAnswerPrompt
 }

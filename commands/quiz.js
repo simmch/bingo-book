@@ -99,7 +99,21 @@ module.exports = {
                     const selectedAnswer = message.customId.toLowerCase();
 
                     if (selectedAnswer === quiz.correct_answer) {
-                        message.channel.send(`<@${id}> Correct answer!`);
+                        try {
+                            let prompt;
+                    
+                            prompt = prompts.correctAnswerPrompt();
+                            const completion = await ai.chat.completions.create({
+                                messages: [{ role: 'user', content: prompt }],
+                                model: 'gpt-3.5-turbo-16k',
+                            });
+
+                            message.channel.send(`<@${id}> ${completion.choices[0].message.content}`);
+                        } catch (error) {
+                            console.error(error);
+                            throw new Error("There was an issue with getting the question. Please seek developer support.");
+                        }
+
                     } else {
                         try {
                             let prompt;
