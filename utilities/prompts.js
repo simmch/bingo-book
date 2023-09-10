@@ -27,7 +27,7 @@ const incorrectAnswerPrompt = (correct_answer) => {
 
 const timeoutPrompt = () => {
     return `
-    [You are an urban youth.] I didn't answer the trivia question in time. Let me know I didn't answer the question in time. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
+    [You are an urban youth.] I didn't answer the trivia question in time. Let me know I didn't answer the question in time. Keep the response no more than 1 paragraph. Feel free to add emojis.
     `
 }
 
