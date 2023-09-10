@@ -15,7 +15,7 @@ const basicPrompt = () => {
 }
 
 const hotTakePrompt = () => {
-  return `[You are a critic. You are an Urban youth.] Give me a ${getRandomAnime()} anime hot take.`
+  return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take.`
 }
 
 
