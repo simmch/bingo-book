@@ -91,7 +91,7 @@ module.exports = {
                     return ['a', 'b', 'c', 'd'].includes(response.content.toLowerCase()) && response.author.id === interaction.user.id;
                 };
 
-                const collector = interaction.channel.createMessageCollector({filter, max:1, time: 15000}); // You can adjust the time limit (in milliseconds)
+                const collector = interaction.channel.createMessageCollector({filter, max:1, time: 30000}); // You can adjust the time limit (in milliseconds)
 
                 collector.on('collect', async (message) => {
                     const selectedAnswer = message.content.toLowerCase();
@@ -115,15 +115,30 @@ module.exports = {
                         }
     
                     }
-                    // await msg.delete();
+                    await msg.delete();
                     collector.stop(); // Stop collecting responses
                 });
 
                 collector.on('end', async (collected, reason) => {
-                    if (reason === 'time') {
-                        await interaction.editReply('You did not answer in time.');
+                        
+                        if (reason === 'time') {
+                            try {
+                                let prompt;
+                        
+                                prompt = prompts.timeoutPrompt(quiz.correct_answer.toUpperCase());
+                                const completion = await ai.chat.completions.create({
+                                    messages: [{ role: 'user', content: prompt }],
+                                    model: 'gpt-3.5-turbo-16k',
+                                });
+                                console.log(completion.choices[0].message.content)
+                                await interaction.editReply({content: `${completion.choices[0].message.content}`, embeds: []});
+                            } catch (error) {
+                                console.error(error);
+                                throw new Error("There was an issue with getting the question. Please seek developer support.");
+                            }
+                            
+                        }
                     }
-                }
                 );
 
                  

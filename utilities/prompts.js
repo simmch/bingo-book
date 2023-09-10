@@ -1,6 +1,6 @@
 const basicPrompt = () => {
     return `
-    [You are an urban youth] Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
+    Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
         "question": '',
         "answers": {
           "a": '',
@@ -15,13 +15,19 @@ const basicPrompt = () => {
 }
 
 const hotTakePrompt = () => {
-  return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take.`
+  return `[You are a critic. You are an Urban youth.] Give me a ${getRandomAnime()} anime hot take.`
 }
 
 
 const incorrectAnswerPrompt = (correct_answer) => {
     return `
-    [You are an urban youth] I got the answer to trivia wrong and the correct answer was ${correct_answer}. Let me know I got the answer wrong. Keep the response relatively short, no more than 4 sentences. Feel free to add emojis. You don't have to be nice all the time.
+    [You are an urban youth.] I got the answer to trivia wrong and the correct answer was ${correct_answer}. Let me know I got the answer wrong. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
+    `
+}
+
+const timeoutPrompt = () => {
+    return `
+    [You are an urban youth.] I didn't answer the trivia question in time. Let me know I didn't answer the question in time. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
     `
 }
 
@@ -236,5 +242,6 @@ function getRandomAnime() {
 module.exports = {
     basicPrompt,
     hotTakePrompt,
-    incorrectAnswerPrompt
+    incorrectAnswerPrompt,
+    timeoutPrompt
 }
