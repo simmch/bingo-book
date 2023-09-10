@@ -15,7 +15,7 @@ const basicPrompt = () => {
 }
 
 const hotTakePrompt = () => {
-  return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take.`
+  return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take. Keep the messasge no longer than 6 sentences. Keep it real with me.`
 }
 
 

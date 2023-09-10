@@ -67,7 +67,7 @@ module.exports = {
                         .setDescription(hot_take)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
-                }, 2700000 ); // 1 hour in milliseconds
+                }, 2700000 ); // 2700000 -  45 minutes in milliseconds
             } catch (err) {
                 if (err) console.error(err);
             }
