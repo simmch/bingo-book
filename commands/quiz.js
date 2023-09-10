@@ -95,7 +95,6 @@ module.exports = {
 
                 collector.once('collect', async (message) => {
                     await message.deferUpdate();
-                    console.log(message)
                     const selectedAnswer = message.customId.toLowerCase();
 
                     if (selectedAnswer === quiz.correct_answer) {
@@ -108,7 +107,9 @@ module.exports = {
                                 model: 'gpt-3.5-turbo-16k',
                             });
 
-                            message.channel.send(`<@${id}> ${completion.choices[0].message.content}`);
+                            embedVar.setFields({name: "🎊 Correct! 🎊", value: `<@${id}> ${completion.choices[0].message.content}`})
+
+                            message.channel.send({embeds: [embedVar], components: []});
                         } catch (error) {
                             console.error(error);
                             throw new Error("There was an issue with getting the question. Please seek developer support.");
@@ -124,7 +125,9 @@ module.exports = {
                                 model: 'gpt-3.5-turbo-16k',
                             });
 
-                            message.channel.send(`<@${id}> ${completion.choices[0].message.content}`);
+                            embedVar.setFields({name: "🚫 Wrong! 🚫", value: `<@${id}> ${completion.choices[0].message.content}`})
+
+                            message.channel.send({embeds: [embedVar], components: []});
                         } catch (error) {
                             console.error(error);
                             throw new Error("There was an issue with getting the question. Please seek developer support.");
@@ -147,7 +150,9 @@ module.exports = {
                                     model: 'gpt-3.5-turbo-16k',
                                 });
                                 // console.log(completion.choices[0].message.content)
-                                await interaction.editReply({content: `<@${id}> ${completion.choices[0].message.content}`, embeds: [], components: []});
+                                embedVar.setFields({name: "⏲️ Too Late! ⏲️", value: `<@${id}> ${completion.choices[0].message.content}`})
+
+                                await interaction.editReply({embeds: [embedVar], components: []});
                             } catch (error) {
                                 console.error(error);
                                 throw new Error("There was an issue with getting the question. Please seek developer support.");

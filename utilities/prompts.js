@@ -21,13 +21,13 @@ const hotTakePrompt = () => {
 
 const incorrectAnswerPrompt = (correct_answer) => {
     return `
-    [You are an urban youth.] I got the answer to trivia wrong and the correct answer was ${correct_answer}. Let me know I got the answer wrong. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
+    [You are an urban youth.] I got the answer to trivia wrong and the correct answer was ${correct_answer}. Let me know I got the answer wrong. Keep the response no more than 1 paragraph. Feel free to add emojis. Keep it real with me.
     `
 }
 
 const timeoutPrompt = () => {
     return `
-    [You are an urban youth.] I didn't answer the trivia question in time. Let me know I didn't answer the question in time. Keep the response no more than 1 paragraph. Feel free to add emojis.
+    [You are an urban youth.] I didn't answer the trivia question in time. Let me know I didn't answer the question in time. Keep the response no more than 1 paragraph. Feel free to add emojis. You are speaking to me.
     `
 }
 
