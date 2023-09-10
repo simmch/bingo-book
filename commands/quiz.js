@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } = require("discord.js");
 const openai = require("openai");
 const prompts = require("../utilities/prompts")
 const { villainClass } = require("../classes/villain");
@@ -30,7 +30,6 @@ module.exports = {
 
                         // In your getQuestion function, after receiving the response:
                         const rawResponse = completion.choices[0].message.content;
-                        // const jsonResponse = validateJSONFormat(rawResponse);
                         console.log(rawResponse)
                         return rawResponse;
                     } catch (error) {
@@ -38,25 +37,6 @@ module.exports = {
                         throw new Error("There was an issue with getting the question. Please seek developer support.");
                     }
                 }
-
-                function validateJSONFormat(response) {
-                    // Convert the response to a string
-                    let strResponse = String(response);
-                
-                    // Replace single quotes with double quotes
-                    strResponse = strResponse.replace(/'/g, '"');
-                
-                    // Escape any unescaped double quotes inside string values
-                    strResponse = strResponse.replace(/"(.*?)"/g, function(match, p1) {
-                        return '"' + p1.replace(/(?<!\\)"/g, '\\"') + '"';
-                    });
-                
-                    // Use a regular expression to ensure all keys are enclosed in double quotes
-                    strResponse = strResponse.replace(/(?<!["\w])\s*([\w]+)\s*:/g, '"$1":');
-                
-                    return strResponse;
-                }
-            
                 
                 function generateRandom7DigitNumber() {
                     const min = 1000000; // Minimum 7-digit number (inclusive)
@@ -64,6 +44,27 @@ module.exports = {
                     const random7DigitNumber = Math.floor(Math.random() * (max - min + 1)) + min;
                     return random7DigitNumber;
                 }
+
+
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId(`A`)
+                            .setLabel("A")
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId(`B`)
+                            .setLabel("B")
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId(`C`)
+                            .setLabel("C")
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId(`D`)
+                            .setLabel("D")
+                            .setStyle(ButtonStyle.Primary),
+                    )
                 
                 const quizData = await getQuestion()
                 if(!quizData) return
@@ -78,26 +79,27 @@ module.exports = {
                 
                 var embedVar = new EmbedBuilder()
                     .setTitle(`🕵️‍♂️ Anime Trivia`)
-                    .setDescription(`**${quiz.question}**\n\n**A** ${quiz.answers.a}\n**B** ${quiz.answers.b}\n**C** ${quiz.answers.c}\n**D** ${quiz.answers.d}`)
+                    .setDescription(`<@${id}> - **${quiz.question}**\n\n**A** ${quiz.answers.a}\n**B** ${quiz.answers.b}\n**C** ${quiz.answers.c}\n**D** ${quiz.answers.d}`)
                     .setTimestamp()
                     .setFooter({text: "Type a, b, c, or d to answer!"})
                 
                 const msg = await interaction.editReply({
-                    embeds: [embedVar]
+                    embeds: [embedVar],
+                    components: [row]
                 })
 
                 // Filter to collect only the user's response
-                const filter = (response) => {
-                    return ['a', 'b', 'c', 'd'].includes(response.content.toLowerCase()) && response.author.id === interaction.user.id;
-                };
+                const filter = b => b.user.id === interaction.user.id
 
-                const collector = interaction.channel.createMessageCollector({filter, max:1, time: 30000}); // You can adjust the time limit (in milliseconds)
+                const collector = interaction.channel.createMessageComponentCollector({filter, max:1, time: 30000}); // You can adjust the time limit (in milliseconds)
 
-                collector.on('collect', async (message) => {
-                    const selectedAnswer = message.content.toLowerCase();
+                collector.once('collect', async (message) => {
+                    await message.deferUpdate();
+                    console.log(message)
+                    const selectedAnswer = message.customId.toLowerCase();
 
                     if (selectedAnswer === quiz.correct_answer) {
-                        message.channel.send('Correct answer!');
+                        message.channel.send(`<@${id}> Correct answer!`);
                     } else {
                         try {
                             let prompt;
@@ -107,8 +109,8 @@ module.exports = {
                                 messages: [{ role: 'user', content: prompt }],
                                 model: 'gpt-3.5-turbo-16k',
                             });
-    
-                            message.channel.send(`${completion.choices[0].message.content}`);
+
+                            message.channel.send(`<@${id}> ${completion.choices[0].message.content}`);
                         } catch (error) {
                             console.error(error);
                             throw new Error("There was an issue with getting the question. Please seek developer support.");
@@ -130,8 +132,8 @@ module.exports = {
                                     messages: [{ role: 'user', content: prompt }],
                                     model: 'gpt-3.5-turbo-16k',
                                 });
-                                console.log(completion.choices[0].message.content)
-                                await interaction.editReply({content: `${completion.choices[0].message.content}`, embeds: []});
+                                // console.log(completion.choices[0].message.content)
+                                await interaction.editReply({content: `<@${id}> ${completion.choices[0].message.content}`, embeds: [], components: []});
                             } catch (error) {
                                 console.error(error);
                                 throw new Error("There was an issue with getting the question. Please seek developer support.");
