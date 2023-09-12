@@ -40,7 +40,7 @@ const correctAnswerPrompt = () => {
 
 const versusPrompt = (anime1, anime2) => {
   return `
-  Following the format below, where in each category only one anime, or manga, can win, fill out the information below for ${anime1} 🆚 ${anime2}, then give a very brief summary at the end.
+  Following the format below, where in each category only one anime, or manga, can win, next to each category put the name of the anime that is better - ${anime1} 🆚 ${anime2}, then give a very brief summary at the end.
 
   Plot/Story - 
   Animation/Design/Art Style -
