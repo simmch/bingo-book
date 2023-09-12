@@ -38,6 +38,23 @@ const correctAnswerPrompt = () => {
   `
 }
 
+const versusPrompt = (anime1, anime2) => {
+  return `
+  Following the format below, where in each category only one anime, or manga, can win, fill out the information below for ${anime1} 🆚 ${anime2}, then give a very brief summary at the end.
+
+  Plot/Story - 
+  Animation/Design/Art Style -
+  Characters - 
+  Audio/Soundtrack - 
+  Voice Acting - 
+  World-Building - 
+  Themes and Symbols - 
+  Emotional Impact - 
+  Re-watch Value - 
+  Cultural Impact/Popularity -
+`
+}
+
 
 const animeMangaList = [
   "Naruto",
@@ -212,6 +229,7 @@ const animeMangaList = [
   "Un-Go",
   "Valkyria Chronicles",
   "Watamote",
+  "Rin: Daughters of Mnemosyne",
   "Xam'd: Lost Memories",
   "Yamada-kun and the Seven Witches",
   "Zone of the Enders: Dolores, I",
@@ -239,6 +257,80 @@ const animeMangaList = [
   "Witch Craft Works",
   "Yozakura Quartet",
   "Zan Sayonara Zetsubou Sensei",
+  "Tower of God",
+  "God of High School",
+  "Noblesse",
+  "Bastard",
+  "Sweet Home",
+  "Unordinary",
+  "I Love Yoo",
+  "Let's Play",
+  "Lore Olympus",
+  "Lumine",
+  "The Gamer",
+  "Dice",
+  "Lookism",
+  "Hardcore Leveling Warrior",
+  "Girls of the Wild's",
+  "Akatsuki no Yona (Yona of the Dawn)",
+  "Kingdom",
+  "Horimiya",
+  "Kaguya-sama: Love is War",
+  "Chainsaw Man",
+  "Solo Leveling",
+  "The Breaker",
+  "The Breaker: New Waves",
+  "Sun-Ken Rock",
+  "Red Storm",
+  "Magician",
+  "Lessa",
+  "Kubera",
+  "Wind Breaker",
+  "Orange Marmalade",
+  "Siren's Lament",
+  "Age Matters",
+  "My ID is Gangnam Beauty",
+  "The Scholar's Reincarnation",
+  "Gosu",
+  "My Dear Cold-Blooded King",
+  "I Am the Sorcerer King",
+  "The Beginning After the End",
+  "A Returner's Magic Should Be Special",
+  "Omniscient Reader's Viewpoint",
+  "The Duchess' 50 Tea Recipes",
+  "Who Made Me a Princess",
+  "The Remarried Empress",
+  "I Became the Hero's Mother",
+  "The Villainess Reverses the Hourglass",
+  "Doctor Elise: The Royal Lady with the Lamp",
+  "The Reason Why Raeliana Ended up at the Duke's Mansion",
+  "Survive as the Hero's Wife",
+  "The Lady and the Beast",
+  "The Villainess Lives Twice",
+  "Death Is The Only Ending For The Villainess",
+  "I Tamed a Tyrant and Ran Away",
+  "The Tyrant's Guardian is an Evil Witch",
+  "The Monster Duchess and Contract Princess",
+  "I'm Stanning the Prince",
+  "The Archmage's Daughter",
+  "The Precious Sister of the Villainous Grand Duke",
+  "The Evil Lady Will Change",
+  "The 8th Son? Are You Kidding Me?",
+  "Seirei Gensouki: Spirit Chronicles",
+  "High School Prodigies Have It Easy Even In Another World",
+  "The Reincarnation of the Strongest Exorcist in Another World",
+  "Handyman Saitou in Another World",
+  "Show By Rock",
+  "Campfire Cooking With My Absurd Skill",
+  "Tenchi Muyo: War On Geminar",
+  "Dog Days",
+  "Drifters",
+  "The Reason Why Raeliana Ended Up At The Duke's Mansion",
+  "Kuma Kuma Kuma Bear",
+  "Total Fantasy Knockout",
+  "Combatants Will Be Dispatched!",
+  "Mushoku Tensei",
+  "Jobless Reincarnation",
 ];
 
 function getRandomAnime() {
@@ -251,5 +343,7 @@ module.exports = {
     hotTakePrompt,
     incorrectAnswerPrompt,
     timeoutPrompt,
-    correctAnswerPrompt
+    correctAnswerPrompt,
+    animeMangaList,
+    versusPrompt 
 }
