@@ -53,8 +53,25 @@ module.exports = {
                 }
 
 
+                async function reviewPromptTake() {
+                    try {
+                        let prompt;
+                
+                        prompt = prompts.reviewPrompt();
+                        const completion = await ai.chat.completions.create({
+                            messages: [{ role: 'user', content: prompt }],
+                            model: 'gpt-3.5-turbo-16k',
+                        });
+                        console.log(completion.choices[0].message.content)
+                        return completion.choices[0].message.content;
+                    } catch (error) {
+                        console.error(error);
+                        throw new Error("There was an issue with getting the question. Please seek developer support.");
+                    }
+                }
 
-                    // Set an interval to run every hour (3600000 milliseconds)
+
+                // Set an interval to run every hour (3600000 milliseconds)
                 setInterval(async () => {
                     // Loop through all guilds (servers) the bot is a member of
                     const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
@@ -63,11 +80,27 @@ module.exports = {
                     console.log(hot_take)
                 
                     const embedVar = new EmbedBuilder()
-                        .setTitle(`🔥 Anime Hot Take`)
+                        .setTitle(`🔥 Ai Anime Hot Take`)
                         .setDescription(hot_take)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
                 }, 2700000 ); // 2700000 -  45 minutes in milliseconds
+
+                // Set an interval to run every hour (3600000 milliseconds)
+                setInterval(async () => {
+                    // Loop through all guilds (servers) the bot is a member of
+                    const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
+                    const review_take = await reviewPromptTake()
+
+                    console.log(review_take)
+                
+                    const embedVar = new EmbedBuilder()
+                        .setTitle(`✨ Ai Anime Review`)
+                        .setDescription(review_take)
+                        .setTimestamp()
+                    channel.send({ embeds: [embedVar] });
+                }, 3600000 ); // 2700000 -  45 minutes in milliseconds
+
             } catch (err) {
                 if (err) console.error(err);
             }
