@@ -57,7 +57,7 @@ const versusPrompt = (anime1, anime2) => {
 
 const reviewPrompt = () => {
   return `
-  Please share your detailed and well-organized review of the anime adaptation of '${getRandomAnime()}'. If you have more familiarity with the manga or manhwa version, kindly review that specific version instead. Additionally, rate the anime adaptation using star emojis on a scale of 1 to 10. Please adhere strictly to the following format while providing your response:
+  Please share your detailed and well-organized review of the anime adaptation of '${getRandomAnime()}', keep the review no longer than 8 sentences. If you have more familiarity with the manga or manhwa version, kindly review that specific version instead. Additionally, rate the anime adaptation using star emojis on a scale of 1 to 10. Please adhere strictly to the following format while providing your response:
 
   **"Naruto"** is an anime series that captures the journey of Naruto Uzumaki, a young ninja with dreams of becoming the strongest ninja and leader of his village, the Hokage. The story beautifully intertwines themes of friendship, perseverance, and self-discovery. As Naruto faces various adversaries, he learns the importance of bonds, understanding, and never giving up. The series is praised for its rich character development, intense battles, and emotional depth.
 
