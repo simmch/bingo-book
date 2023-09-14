@@ -84,22 +84,22 @@ module.exports = {
                         .setDescription(hot_take)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
-                }, 2700000 ); // 2700000 -  45 minutes in milliseconds
+                }, 5000 ); // 3600000 -  45 minutes in milliseconds
 
                 // Set an interval to run every hour (3600000 milliseconds)
-                setInterval(async () => {
-                    // Loop through all guilds (servers) the bot is a member of
-                    const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
-                    const review_take = await reviewPromptTake()
+                // setInterval(async () => {
+                //     // Loop through all guilds (servers) the bot is a member of
+                //     const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
+                //     const review_take = await reviewPromptTake()
 
-                    console.log(review_take)
+                //     console.log(review_take)
                 
-                    const embedVar = new EmbedBuilder()
-                        .setTitle(`✨ Ai Anime Review`)
-                        .setDescription(review_take)
-                        .setTimestamp()
-                    channel.send({ embeds: [embedVar] });
-                }, 3600000 ); // 2700000 -  45 minutes in milliseconds
+                //     const embedVar = new EmbedBuilder()
+                //         .setTitle(`✨ Ai Anime Review`)
+                //         .setDescription(review_take)
+                //         .setTimestamp()
+                //     channel.send({ embeds: [embedVar] });
+                // }, 3600000 ); // 2700000 -  45 minutes in milliseconds
 
             } catch (err) {
                 if (err) console.error(err);
