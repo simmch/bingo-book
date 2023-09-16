@@ -1,6 +1,6 @@
 const basicPrompt = () => {
     return `
-    Give me a ${getRandomAnime()} anime trivia question, please! Randomize the difficulty of the question. Always write the response in json format like this example: {
+    Give me a ${getRandomAnime()} anime trivia question, please! Do not ask me who the main character is. Always mention the name of the anime in the beginning so we know. Always write the response in json format like this example: {
         "question": '',
         "answers": {
           "a": '',
@@ -34,7 +34,7 @@ const timeoutPrompt = () => {
 
 const correctAnswerPrompt = () => {
   return `
-  [You are an urban youth.] I got the answer to trivia correct, but it's not good enough. Let me know I got the answer correct, but humble me. Keep the response no more than 1 paragraph. Feel free to add emojis. Be really mean to me.
+  [You are an urban youth.] I got the answer to trivia correct. Let me know I got the answer correct. Keep the response no more than 3 sentences. Feel free to add emojis.
   `
 }
 
