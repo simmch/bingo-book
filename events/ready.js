@@ -84,7 +84,7 @@ module.exports = {
                         .setDescription(hot_take)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
-                }, 3600000 ); // 3600000 -  45 minutes in milliseconds
+                }, 54000000 ); // 3600000 -  45 minutes in milliseconds
 
                 // Set an interval to run every hour (3600000 milliseconds)
                 // setInterval(async () => {
