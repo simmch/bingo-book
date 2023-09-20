@@ -74,7 +74,7 @@ module.exports = {
                 // Set an interval to run every hour (3600000 milliseconds)
                 setInterval(async () => {
                     // Loop through all guilds (servers) the bot is a member of
-                    const channel = client.channels.cache.get(process.env.DEV_CHANNEL_ID_FOR_HOTTAKES)
+                    const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
                     const hot_take = await getHotTake()
 
                     console.log(hot_take)
