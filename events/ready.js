@@ -35,20 +35,23 @@ module.exports = {
                     });
                     console.log("Successfully registered commands locally.");
                 }
-                async function getHotTake() {
+
+                async function getFunFact() {
                     try {
-                        let prompt;
-                
-                        prompt = prompts.hotTakePrompt();
+                        response = prompts.funFactPrompt();
+                        console.log(response.anime)
                         const completion = await ai.chat.completions.create({
-                            messages: [{ role: 'user', content: prompt }],
+                            messages: [{ role: 'user', content: response.prompt }],
                             model: 'gpt-3.5-turbo-16k',
                         });
                         console.log(completion.choices[0].message.content)
-                        return completion.choices[0].message.content;
+                        return {
+                            fact: completion.choices[0].message.content,
+                            anime: response.anime
+                        }
                     } catch (error) {
                         console.error(error);
-                        throw new Error("There was an issue with getting the question. Please seek developer support.");
+                        throw new Error("There was an issue with getting the fun fact. Please seek developer support.");
                     }
                 }
 
@@ -75,31 +78,18 @@ module.exports = {
                 setInterval(async () => {
                     // Loop through all guilds (servers) the bot is a member of
                     const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
-                    const hot_take = await getHotTake()
+                    const response = await getFunFact()
 
-                    console.log(hot_take)
+                    // console.log(response.fact)
                 
                     const embedVar = new EmbedBuilder()
-                        .setTitle(`🔥 Ai Anime Hot Take`)
-                        .setDescription(hot_take)
+                        .setTitle(`💡 ${response.anime} - Fun Fact`)
+                        .setDescription(response.fact)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
-                }, 54000000 ); // 3600000 -  45 minutes in milliseconds
+                }, 54000000 ); // 54000000
 
-                // Set an interval to run every hour (3600000 milliseconds)
-                // setInterval(async () => {
-                //     // Loop through all guilds (servers) the bot is a member of
-                //     const channel = client.channels.cache.get(process.env.PROD_CHANNEL_ID_FOR_HOTTAKES)
-                //     const review_take = await reviewPromptTake()
 
-                //     console.log(review_take)
-                
-                //     const embedVar = new EmbedBuilder()
-                //         .setTitle(`✨ Ai Anime Review`)
-                //         .setDescription(review_take)
-                //         .setTimestamp()
-                //     channel.send({ embeds: [embedVar] });
-                // }, 3600000 ); // 2700000 -  45 minutes in milliseconds
 
             } catch (err) {
                 if (err) console.error(err);

@@ -14,8 +14,15 @@ const basicPrompt = () => {
     `
 }
 
-const hotTakePrompt = () => {
-  return `[You are a critic.] Give me a ${getRandomAnime()} anime hot take. Keep the messasge no longer than 5 sentences. Talk in slang.`
+const funFactPrompt = () => {
+  const anime = getRandomAnime();
+  console.log(anime)
+  const prompt = `[You are a mangaka] Tell me an interesting fun fact about the anime ${anime}`
+  console.log(anime)
+  return {
+    prompt,
+    anime
+  }
 }
 
 
@@ -356,7 +363,7 @@ function getRandomAnime() {
 
 module.exports = {
     basicPrompt,
-    hotTakePrompt,
+    funFactPrompt,
     incorrectAnswerPrompt,
     timeoutPrompt,
     correctAnswerPrompt,
