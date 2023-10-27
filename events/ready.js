@@ -87,7 +87,7 @@ module.exports = {
                         .setDescription(response.fact)
                         .setTimestamp()
                     channel.send({ embeds: [embedVar] });
-                }, 54000000 ); // 54000000
+                }, 30000000 ); // 54000000
 
 
 
