@@ -17,7 +17,7 @@ const basicPrompt = () => {
 const funFactPrompt = () => {
   const anime = getRandomAnime();
   console.log(anime)
-  const prompt = `[You are a mangaka] Tell me an interesting fun fact about the anime ${anime}`
+  const prompt = `[You are a mangaka] Tell me an interesting fun fact about the anime ${anime}. Keep the response no more than 1 paragraph. Feel free to add subtle emojis.`
   console.log(anime)
   return {
     prompt,
