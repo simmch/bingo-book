@@ -53,7 +53,7 @@ module.exports = {
                 prompt = prompts.versusPrompt(a1, a2);
                 const completion = await ai.chat.completions.create({
                     messages: [{ role: 'user', content: prompt }],
-                    model: 'gpt-3.5-turbo-16k',
+                    model: 'gpt-4-1106-preview',
                 });
                 return completion.choices[0].message.content;
             } catch (error) {

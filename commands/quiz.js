@@ -25,7 +25,7 @@ module.exports = {
                         prompt = prompts.basicPrompt();
                         const completion = await ai.chat.completions.create({
                             messages: [{ role: 'user', content: prompt }],
-                            model: 'gpt-3.5-turbo-16k',
+                            model: 'gpt-4-1106-preview',
                         });
 
                         // In your getQuestion function, after receiving the response:
@@ -104,7 +104,7 @@ module.exports = {
                             prompt = prompts.correctAnswerPrompt();
                             const completion = await ai.chat.completions.create({
                                 messages: [{ role: 'user', content: prompt }],
-                                model: 'gpt-3.5-turbo-16k',
+                                model: 'gpt-4-1106-preview',
                             });
 
                             embedVar.setFields({name: "🎊 Correct! 🎊", value: `<@${id}> ${completion.choices[0].message.content}`})
@@ -122,7 +122,7 @@ module.exports = {
                             prompt = prompts.incorrectAnswerPrompt(quiz.correct_answer.toUpperCase());
                             const completion = await ai.chat.completions.create({
                                 messages: [{ role: 'user', content: prompt }],
-                                model: 'gpt-3.5-turbo-16k',
+                                model: 'gpt-4-1106-preview',
                             });
 
                             embedVar.setFields({name: "🚫 Wrong! 🚫", value: `<@${id}> ${completion.choices[0].message.content}`})
@@ -147,7 +147,7 @@ module.exports = {
                                 prompt = prompts.timeoutPrompt(quiz.correct_answer.toUpperCase());
                                 const completion = await ai.chat.completions.create({
                                     messages: [{ role: 'user', content: prompt }],
-                                    model: 'gpt-3.5-turbo-16k',
+                                    model: 'gpt-4-1106-preview',
                                 });
                                 // console.log(completion.choices[0].message.content)
                                 embedVar.setFields({name: "⏲️ Too Late! ⏲️", value: `<@${id}> ${completion.choices[0].message.content}`})

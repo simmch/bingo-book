@@ -42,7 +42,7 @@ module.exports = {
                         console.log(response.anime)
                         const completion = await ai.chat.completions.create({
                             messages: [{ role: 'user', content: response.prompt }],
-                            model: 'gpt-3.5-turbo-16k',
+                            model: 'gpt-4-1106-preview',
                         });
                         console.log(completion.choices[0].message.content)
                         return {
@@ -63,7 +63,7 @@ module.exports = {
                         prompt = prompts.reviewPrompt();
                         const completion = await ai.chat.completions.create({
                             messages: [{ role: 'user', content: prompt }],
-                            model: 'gpt-3.5-turbo-16k',
+                            model: 'gpt-4-1106-preview',
                         });
                         console.log(completion.choices[0].message.content)
                         return completion.choices[0].message.content;
