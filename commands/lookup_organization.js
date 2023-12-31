@@ -6,6 +6,8 @@ const organizations_api = require("../service/api/organizations_api")
 const { bountyActions, bountyCheck} = require("../utilities")
 const { organizationClass } = require("../classes/organization")
 const { bountyImage } = require("../utilities/bounty_canva")
+const { read } = require("../service/api");
+
 
 
 
@@ -40,6 +42,7 @@ module.exports = {
                         })
                         return
                     } 
+
                 }
                 if(organization_name){
                     organization_info = await organizations_api.read({"NAME": organization_name})
@@ -64,7 +67,11 @@ module.exports = {
 
                 let members = []
                 let officers = []
+                let bounty = 0
                 for(let member of organization_info.MEMBERS) {
+                    const villain_info = await read({"ID": member})
+                    bounty = bounty + villain_info.BOUNTY
+                    if (organization_info.OFFICERS.includes(member)) continue;
                     let username = await interaction.client.users.fetch(member).catch(() => null);
                     members.push(`${username}`)
                 }
@@ -78,11 +85,11 @@ module.exports = {
                     .setTitle(`🕵️‍♂️ ${organization_info.NAME}`)
                     .setDescription(`💬 **Message of the day**\n${organization_info.MESSAGE}`)
                     .addFields(
-                        {name: "🕵️‍♂️ Members", value: `${memberList}`},
-                        {name: "🕴️ Officers", value: `${officerList}`},
-                        {name: "💰 Bounty", value: `💵 $${organization_info.BOUNTY.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                        {name: "🕵️‍♂️ Confidants", value: `${memberList}`},
+                        {name: "🕴️ Officials", value: `${officerList}`},
+                        {name: "💰 Organization Bounty", value: `💵 $${bounty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                     )
-                organization_info.GIF ? embedVar.setImage(gif) : ""
+                organization_info.GIF ? embedVar.setImage(organization_info.GIF) : ""
 
                 
                     await interaction.reply({
